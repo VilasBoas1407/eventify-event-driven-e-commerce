@@ -65,7 +65,7 @@ Repeat for **order-service** and **notification-service**.
 
 **TODO** : Create an docker-compose to up all services too.
 
-## ⚙️ Kafka
+## 📬 Kafka
 
 To easily inspect Kafka topics and messages, we are using **AKHQ**, which provides a user-friendly web interface.
 
