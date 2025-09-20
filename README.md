@@ -15,8 +15,7 @@
 - [Deployment](#-deployment)
 
 
-
-## ⚙️ Installation
+## 🚀 Installation
 
 To run Eventify locally, you need **Docker** and **Docker Compose** installed. The setup uses Docker to spin up mongo databases and Kafka for event streaming.
 
