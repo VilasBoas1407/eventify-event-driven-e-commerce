@@ -40,6 +40,41 @@ services:
     volumes:
       - mongo-notification-data:/data/db
 
+  # Zookeeper necessário para Kafka
+  zookeeper:
+    image: bitnami/zookeeper:3
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      ALLOW_ANONYMOUS_LOGIN: "yes"
+
+  # Kafka Broker
+  kafka:
+    image: bitnami/kafka:3
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      ALLOW_PLAINTEXT_LISTENER: "yes"
+    depends_on:
+      - zookeeper
+
+  # AKHQ para visualizar Kafka
+  akhq:
+    image: tchiotludo/akhq:latest
+    container_name: akhq
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./akhq.yml:/app/application.yml
+    depends_on:
+      - kafka
+
 volumes:
   mongo-order-data:
   mongo-auth-data:
