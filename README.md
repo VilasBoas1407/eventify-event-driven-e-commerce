@@ -83,6 +83,14 @@ AKHQ will be available in your browser at port 8080:
 http://localhost:8080
 ```
 
+
+### Topics
+
+| Topic           | Producer      | Consumers                                | Description                                                                                                            |
+| --------------- | ------------- | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `order-created` | Order Service | Qualification Service, Inventory Service | Triggered whenever a new order is created. Services consume this event to process qualification and inventory updates. |
+
+
 ## 📦 System Overview
 
 The fictitious company **ABC** faced a major problem: its e-commerce system could not keep up with growing demand, which risked revenue loss and reduced credibility. The COVID-19 pandemic further accelerated sales, increasing from **500 orders/day to 5,000 orders/day**.  
