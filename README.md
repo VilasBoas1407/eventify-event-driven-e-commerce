@@ -7,6 +7,7 @@
 ---
 ## Summary
 - [Installation](#-installation)
+- [Kafka](#-viewing-kafka-with-AKHQ)
 - [System Overview](#-system-overview)
 - [Architecture](#-architecture)
 - [Requirements](#-requirements)
@@ -63,6 +64,24 @@ npm run start:dev
 Repeat for **order-service** and **notification-service**.
 
 **TODO** : Create an docker-compose to up all services too.
+
+## 🖥️ Viewing Kafka with AKHQ
+
+To easily inspect Kafka topics and messages, we are using **AKHQ**, which provides a user-friendly web interface.
+
+### 🔹 Accessing AKHQ
+
+1. Make sure all Docker services are running:
+
+```bash
+  docker-compose up -d
+```
+
+AKHQ will be available in your browser at port 8080:
+
+```bash
+http://localhost:8080
+```
 
 ## 📦 System Overview
 
