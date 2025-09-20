@@ -9,7 +9,6 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true, // remove propriedades que não estão no DTO
-      forbidNonWhitelisted: true, // retorna erro se houver campos extras
       transform: true, // transforma JSON em instância da classe
     })
   );
@@ -18,7 +17,6 @@ async function bootstrap() {
     .setTitle('Psiu API')
     .setDescription('API aplicação Psiu - Psicólogos')
     .setVersion('1.0')
-    .addTag('Auth')
     .addBearerAuth({
       type: 'http',
       scheme: 'bearer',

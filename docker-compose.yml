@@ -1,6 +1,7 @@
 version: "3.9"
 
 services:
+  # MongoDB para Order Service
   mongo-order:
     image: mongo:6.0
     container_name: mongo-order
@@ -8,11 +9,12 @@ services:
       - "27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-      MONGO_INITDB_DATABASE: orderdb
+      MONGO_INITDB_ROOT_PASSWORD: eventify-2025
+      MONGO_INITDB_DATABASE: order-db
     volumes:
       - mongo-order-data:/data/db
 
+  # MongoDB para Auth Service
   mongo-auth:
     image: mongo:6.0
     container_name: mongo-auth
@@ -20,11 +22,12 @@ services:
       - "27018:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_ROOT_PASSWORD: eventify-2025
       MONGO_INITDB_DATABASE: authdb
     volumes:
       - mongo-auth-data:/data/db
 
+  # MongoDB para Notification Service
   mongo-notification:
     image: mongo:6.0
     container_name: mongo-notification
@@ -32,7 +35,7 @@ services:
       - "27019:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_ROOT_PASSWORD: eventify-2025
       MONGO_INITDB_DATABASE: notificationdb
     volumes:
       - mongo-notification-data:/data/db

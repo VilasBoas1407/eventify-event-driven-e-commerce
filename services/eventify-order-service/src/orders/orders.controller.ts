@@ -1,21 +1,23 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
-import { OrderService } from './orders.service';
+import { OrderService } from './services/orders.service';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { CreateOrderRequest } from './contracts/create-order.contract';
 
 @ApiTags('orders')
-@Controller('orders')
+@Controller('api/orders')
 export class OrdersController {
   constructor(private readonly ordersService: OrderService) {}
 
   @Get()
   @ApiOperation({ summary: 'Retrieve all orders' })
-  getOrders(): any[] {
-    return this.ordersService.getOrders();
+  async getOrders() {
+    return await this.ordersService.getOrders();
   }
 
   @Post()
   @ApiOperation({ summary: 'Create a new order' })
-  createOrder(@Body() orderData: any): any {
-    return this.ordersService.createOrder(orderData);
+  async createOrder(@Body() request: CreateOrderRequest) {
+    const orderId = await this.ordersService.createOrder(request);
+    return { message: 'Order created successfully', order: orderId };
   }
 }
