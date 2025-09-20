@@ -5,6 +5,15 @@
 > This project is part of the book’s final section, where three simplified, practical projects are proposed to apply EDA concepts learned throughout the chapters. Each project includes defining the problem, functional & non-functional requirements, constraints, and execution steps.
 
 ---
+## Summary
+
+- [Run application](#running)
+- [System Overview](#system-overview)
+- [Architecture](#architecture)
+- [Requirements](#requirements)
+- [Development Workflow](#development-workflow)
+- [Testing](#testing)
+- [Deployment](#deployment)
 
 
 ## 📦 System Overview
