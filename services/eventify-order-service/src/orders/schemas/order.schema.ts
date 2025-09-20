@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { BaseSchema } from 'shared/BaseSchema';
+import { BaseSchema } from 'src/shared/BaseSchema';
+import { OrderStatus } from 'src/shared/enum/OrderStatus';
 
 export class ProductItem {
   @Prop({ required: true })
@@ -55,5 +56,7 @@ export class Order extends BaseSchema {
 
   @Prop({ required: true, type: Object })
   payment: Payment;
+
+  orderStatus: OrderStatus;
 }
 export const OrderSchema = SchemaFactory.createForClass(Order);
