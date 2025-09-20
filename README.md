@@ -6,7 +6,7 @@
 
 ---
 ## Summary
-- [Install](#-system-overview)
+- [Installation](#-installation)
 - [System Overview](#-system-overview)
 - [Architecture](#-architecture)
 - [Requirements](#-requirements)
