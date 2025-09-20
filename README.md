@@ -73,8 +73,7 @@ The project follows four main stages, as proposed in the book:
 
 ## 🧪 Testing
 
-- Happy-path scenarios automated with Postman  
-- Compare your implementation with the reference solution available in the GitHub repository  
+- TODO
 
 ---
 
