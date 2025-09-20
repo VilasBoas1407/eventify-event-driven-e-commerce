@@ -7,7 +7,7 @@
 ---
 ## Summary
 - [Installation](#-installation)
-- [Kafka](#-viewing-kafka-with-AKHQ)
+- [Kafka](#-lafka)
 - [System Overview](#-system-overview)
 - [Architecture](#-architecture)
 - [Requirements](#-requirements)
@@ -65,7 +65,7 @@ Repeat for **order-service** and **notification-service**.
 
 **TODO** : Create an docker-compose to up all services too.
 
-## 🖥️ Viewing Kafka with AKHQ
+## ⚙️ Kafka
 
 To easily inspect Kafka topics and messages, we are using **AKHQ**, which provides a user-friendly web interface.
 
