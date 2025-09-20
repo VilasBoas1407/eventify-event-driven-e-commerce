@@ -6,7 +6,7 @@
 
 ---
 ## Summary
-
+- [Install](#-system-overview)
 - [System Overview](#-system-overview)
 - [Architecture](#-architecture)
 - [Requirements](#-requirements)
@@ -15,6 +15,55 @@
 - [Deployment](#-deployment)
 
 
+
+## ⚙️ Installation
+
+To run Eventify locally, you need **Docker** and **Docker Compose** installed. The setup uses Docker to spin up mongo databases and Kafka for event streaming.
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/VilasBoas1407/eventify-event-driven-e-commerce.git
+cd eventify
+```
+
+### 2. Start the infrastructure
+
+From the project root, run:
+```bash
+docker-compose up -d
+```
+**This will start:**
+
+- Databases ( MongoDB)
+
+- Kafka broker for event-driven communication
+
+You can check running containers with:
+``` bash
+docker ps
+```
+
+#### 3. Verify services
+
+Kafka UI (if available) at http://localhost:9092 (or your configured port)
+
+Databases accessible on their respective ports
+
+#### 4. Run the NestJS services
+
+Each microservice is located in services/:
+
+#### Example for auth service
+``` bash
+cd services/eventify-auth-service
+npm install
+npm run start:dev
+```
+
+Repeat for **order-service** and **notification-service**.
+
+**TODO** : Create an docker-compose to up all services too.
 
 ## 📦 System Overview
 
