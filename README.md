@@ -1,11 +1,68 @@
 # Eventify – Event-Driven E-commerce Platform (NestJS)
 
-**Eventify** is a practical project inspired by **Project 1** from Roberto Picanço’s book *Event-Driven Architecture: Scalable and Real-Time Solutions with EDA*. Built with **NestJS**, it simulates a **scalable, event-driven e-commerce system**, demonstrating microservices, event brokers, and automated testing.
+**Eventify** is a practical project inspired by **Project 1** from Roberto Picanço’s book *Arquitetura Orientada a Eventos: Soluções escaláveis e em tempo real com EDA*. Built with **NestJS**, it simulates a **scalable, event-driven e-commerce system**, demonstrating microservices, event brokers, and automated testing.
 
 > This project is part of the book’s final section, where three simplified, practical projects are proposed to apply EDA concepts learned throughout the chapters. Each project includes defining the problem, functional & non-functional requirements, constraints, and execution steps.
 
 ---
+## Summary
+- [Installation](#-installation)
+- [System Overview](#-system-overview)
+- [Architecture](#-architecture)
+- [Requirements](#-requirements)
+- [Development Workflow](#-development-workflow)
+- [Testing](#-testing)
+- [Deployment](#-deployment)
 
+
+## 🚀 Installation
+
+To run Eventify locally, you need **Docker** and **Docker Compose** installed. The setup uses Docker to spin up mongo databases and Kafka for event streaming.
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/VilasBoas1407/eventify-event-driven-e-commerce.git
+cd eventify
+```
+
+### 2. Start the infrastructure
+
+From the project root, run:
+```bash
+docker-compose up -d
+```
+**This will start:**
+
+- Databases ( MongoDB)
+
+- Kafka broker for event-driven communication
+
+You can check running containers with:
+``` bash
+docker ps
+```
+
+#### 3. Verify services
+
+Kafka UI (if available) at http://localhost:9092 (or your configured port)
+
+Databases accessible on their respective ports
+
+#### 4. Run the NestJS services
+
+Each microservice is located in services/:
+
+#### Example for auth service
+``` bash
+cd services/eventify-auth-service
+npm install
+npm run start:dev
+```
+
+Repeat for **order-service** and **notification-service**.
+
+**TODO** : Create an docker-compose to up all services too.
 
 ## 📦 System Overview
 
@@ -73,8 +130,7 @@ The project follows four main stages, as proposed in the book:
 
 ## 🧪 Testing
 
-- Happy-path scenarios automated with Postman  
-- Compare your implementation with the reference solution available in the GitHub repository  
+- TODO
 
 ---
 
