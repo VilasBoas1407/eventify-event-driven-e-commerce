@@ -54,12 +54,15 @@ services:
     image: bitnami/kafka:3
     container_name: kafka
     ports:
-      - "9092:9092"
+      - "9092:9092" # comunicação interna
+      - "29092:29092" # comunicação host -> container
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
-      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,PLAINTEXT_HOST://0.0.0.0:29092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       ALLOW_PLAINTEXT_LISTENER: "yes"
     depends_on:
       - zookeeper
@@ -74,6 +77,27 @@ services:
       - ./akhq.yml:/app/application.yml
     depends_on:
       - kafka
+
+  # Inicializador de tópicos
+  kafka-init:
+    image: bitnami/kafka:3
+    container_name: kafka-init
+    depends_on:
+      - kafka
+    entrypoint:
+      - /bin/bash
+      - -c
+      - |
+        # Espera Kafka subir
+        until echo > /dev/tcp/kafka/9092; do
+          echo "Waiting Kafka..."
+          sleep 2
+        done
+        # Cria tópicos
+        kafka-topics.sh --create --topic order-created --bootstrap-server kafka:9092 --partitions 1 --replication-factor 1
+        kafka-topics.sh --create --topic order-updated --bootstrap-server kafka:9092 --partitions 1 --replication-factor 1
+        echo "Topics created!"
+        tail -f /dev/null
 
 volumes:
   mongo-order-data:
