@@ -4,7 +4,7 @@ import { OrderService } from './services/orders.service';
 import { OrderRepository } from './repository/orders.repository';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Order, OrderSchema } from './schemas/order.schema';
-import { KafkaModule } from 'src/kafka/kafka.module';
+import { KafkaModule } from '@vilasboas1407/kafka';
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: Order.name, schema: OrderSchema }]), KafkaModule],

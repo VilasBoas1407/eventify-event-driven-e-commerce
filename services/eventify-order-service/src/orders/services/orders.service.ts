@@ -2,8 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateOrderRequest } from '../contracts/create-order.contract';
 import { OrderRepository } from '../repository/orders.repository';
 import { Order } from '../schemas/order.schema';
-import { KafkaService } from 'src/kafka/services/kafka.service';
-import { ORDER_CREATED_TOPIC } from 'src/kafka/constants/kafka.constants';
+import { KafkaService, ORDER_CREATED_EVENT } from '@vilasboas1407/kafka';
 
 @Injectable()
 export class OrderService {
@@ -22,7 +21,7 @@ export class OrderService {
 
   async createOrder(request: CreateOrderRequest): Promise<Order> {
     const order = await this.orderRepository.create(request);
-    await this.kafkaService.emit(ORDER_CREATED_TOPIC, order);
+    await this.kafkaService.sendMessage(ORDER_CREATED_EVENT, order);
     return order.id;
   }
 }

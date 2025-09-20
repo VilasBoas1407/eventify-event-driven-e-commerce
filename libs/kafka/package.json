@@ -1,0 +1,22 @@
+{
+    "name": "@vilasboas1407/kafka",
+    "version": "1.2.5",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "description": "Implements Kafka producer and consumer using kafkajs",
+    "author": "Lucas Vilas Boas",
+    "license": "MIT",
+    "files": [
+        "dist"
+    ],
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com/"
+    },
+    "scripts": {
+        "build": "tsc -p tsconfig.lib.json"
+    },
+    "dependencies": {
+        "@nestjs/common": "^11.1.6",
+        "kafkajs": "^2.2.4"
+    }
+}
