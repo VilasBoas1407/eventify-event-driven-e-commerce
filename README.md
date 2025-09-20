@@ -46,7 +46,7 @@ docker ps
 
 #### 3. Verify services
 
-Kafka UI (if available) at http://localhost:9092 (or your configured port)
+Kafka UI at http://localhost:9092
 
 Databases accessible on their respective ports
 
