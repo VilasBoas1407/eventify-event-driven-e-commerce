@@ -16,19 +16,11 @@ export class OrderRepository {
     return createdOrder;
   }
 
-  //   async findById(id: string): Promise<Order | null> {
-  //     return this.orderModel.findById(id).exec();
-  //   }
+  async findById(id: string): Promise<Order | null> {
+    return this.orderModel.findById(id).exec();
+  }
 
   async findAll(): Promise<Order[]> {
     return this.orderModel.find().exec();
   }
-
-  //   async update(id: string, updateData: Partial<Order>): Promise<Order | null> {
-  //     return this.orderModel.findByIdAndUpdate(id, updateData, { new: true }).exec();
-  //   }
-
-  //   async delete(id: string): Promise<Order | null> {
-  //     return this.orderModel.findByIdAndDelete(id).exec();
-  //   }
 }

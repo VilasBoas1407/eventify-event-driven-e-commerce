@@ -62,27 +62,35 @@ export class CustomerRequest {
 
 export class PaymentRequest {
   @ApiProperty({ description: 'Card ID' })
+  @IsString()
   cardId: string;
 
   @ApiProperty({ description: 'Card BIN' })
+  @IsString()
   bin: string;
 
   @ApiProperty({ description: 'Card number token' })
+  @IsString()
   numberToken: string;
 
   @ApiProperty({ description: 'Cardholder name' })
+  @IsString()
   cardholderName: string;
 
   @ApiProperty({ description: 'Card security code' })
+  @IsString()
   securityCode: string;
 
   @ApiProperty({ description: 'Card brand' })
+  @IsString()
   brand: string;
 
   @ApiProperty({ description: 'Card expiration month' })
+  @IsString()
   expirationMonth: string;
 
   @ApiProperty({ description: 'Card expiration year' })
+  @IsString()
   expirationYear: string;
 }
 

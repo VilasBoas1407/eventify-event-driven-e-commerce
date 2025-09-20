@@ -1,7 +1,7 @@
 version: "3.9"
 
 services:
-  # MongoDB para Order Service
+  # MongoDB for Order Service
   mongo-order:
     image: mongo:6.0
     container_name: mongo-order
@@ -14,7 +14,7 @@ services:
     volumes:
       - mongo-order-data:/data/db
 
-  # MongoDB para Auth Service
+  # MongoDB for Auth Service
   mongo-auth:
     image: mongo:6.0
     container_name: mongo-auth
@@ -27,7 +27,7 @@ services:
     volumes:
       - mongo-auth-data:/data/db
 
-  # MongoDB para Notification Service
+  # MongoDB for Notification Service
   mongo-notification:
     image: mongo:6.0
     container_name: mongo-notification
@@ -40,7 +40,7 @@ services:
     volumes:
       - mongo-notification-data:/data/db
 
-  # Zookeeper necessário para Kafka
+  # Zookeeper necessary for Kafka
   zookeeper:
     image: bitnami/zookeeper:3
     container_name: zookeeper
@@ -67,7 +67,7 @@ services:
     depends_on:
       - zookeeper
 
-  # AKHQ para visualizar Kafka
+  # AKHQ to visualize Kafka topics
   akhq:
     image: tchiotludo/akhq:latest
     container_name: akhq
@@ -78,7 +78,6 @@ services:
     depends_on:
       - kafka
 
-  # Inicializador de tópicos
   kafka-init:
     image: bitnami/kafka:3
     container_name: kafka-init
@@ -88,12 +87,10 @@ services:
       - /bin/bash
       - -c
       - |
-        # Espera Kafka subir
         until echo > /dev/tcp/kafka/9092; do
           echo "Waiting Kafka..."
           sleep 2
         done
-        # Cria tópicos
         kafka-topics.sh --create --topic order-created --bootstrap-server kafka:9092 --partitions 1 --replication-factor 1
         kafka-topics.sh --create --topic order-updated --bootstrap-server kafka:9092 --partitions 1 --replication-factor 1
         echo "Topics created!"

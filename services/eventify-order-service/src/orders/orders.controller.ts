@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { OrderService } from './services/orders.service';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateOrderRequest } from './contracts/create-order.contract';
 
 @ApiTags('orders')
@@ -12,6 +12,12 @@ export class OrdersController {
   @ApiOperation({ summary: 'Retrieve all orders' })
   async getOrders() {
     return await this.ordersService.getOrders();
+  }
+
+  @Get(':id')
+  @ApiOperation({ summary: 'Retrieve an order by ID' })
+  async getOrderById(@Param('id') id: string) {
+    return await this.ordersService.getOrderById(id);
   }
 
   @Post()
