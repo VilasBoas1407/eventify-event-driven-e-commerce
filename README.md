@@ -7,13 +7,13 @@
 ---
 ## Summary
 
-- [Run application](#running)
-- [System Overview](#system-overview)
-- [Architecture](#architecture)
-- [Requirements](#requirements)
-- [Development Workflow](#development-workflow)
-- [Testing](#testing)
-- [Deployment](#deployment)
+- [System Overview](#-system-overview)
+- [Architecture](#-architecture)
+- [Requirements](#-requirements)
+- [Development Workflow](#-development-workflow)
+- [Testing](#-testing)
+- [Deployment](#-deployment)
+
 
 
 ## 📦 System Overview
