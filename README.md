@@ -7,7 +7,7 @@
 ---
 ## Summary
 - [Installation](#-installation)
-- [Kafka](#-lafka)
+- [Kafka](#-kafka)
 - [System Overview](#-system-overview)
 - [Architecture](#-architecture)
 - [Requirements](#-requirements)
