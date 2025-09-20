@@ -1,114 +1,88 @@
-# Plataforma de E-commerce - Projeto EDA
+# Eventify – Event-Driven E-commerce Platform (NestJS)
 
-Este projeto é uma implementação prática do **Projeto 1** do livro *Arquitetura Orientada a Eventos: Soluções Escaláveis e em Tempo Real com EDA* de Roberto Picanço.  
+**Eventify** is a practical project inspired by **Project 1** from Roberto Picanço’s book *Event-Driven Architecture: Scalable and Real-Time Solutions with EDA*. Built with **NestJS**, it simulates a **scalable, event-driven e-commerce system**, demonstrating microservices, event brokers, and automated testing.
 
-O objetivo é demonstrar a aplicação dos conceitos e padrões de **Arquitetura Orientada a Eventos (EDA)** em um cenário de e-commerce, utilizando brokers de eventos, design de soluções distribuídas e práticas de teste automatizado.
-
----
-
-## Sumário
-
-- [Descrição do Projeto](#descrição-do-projeto)
-- [Escopo do Sistema](#escopo-do-sistema)
-- [Requisitos Funcionais](#requisitos-funcionais)
-- [Requisitos Não Funcionais](#requisitos-não-funcionais)
-- [Restrições](#restrições)
-- [Arquitetura da Solução](#arquitetura-da-solução)
-- [Execução do Projeto](#execução-do-projeto)
-- [Testes](#testes)
-- [Deploy](#deploy)
+> This project is part of the book’s final section, where three simplified, practical projects are proposed to apply EDA concepts learned throughout the chapters. Each project includes defining the problem, functional & non-functional requirements, constraints, and execution steps.
 
 ---
 
-## Descrição do Projeto
 
-A empresa fictícia **ABC** enfrenta problemas de escalabilidade em sua plataforma de e-commerce, principalmente devido ao aumento repentino da demanda (de 500 para 5.000 pedidos/dia).  
-O projeto visa implementar uma solução que garanta:
+## 📦 System Overview
 
-- Processamento confiável de pedidos;
-- Alta disponibilidade e escalabilidade;
-- Extensibilidade para futuras funcionalidades.
+The fictitious company **ABC** faced a major problem: its e-commerce system could not keep up with growing demand, which risked revenue loss and reduced credibility. The COVID-19 pandemic further accelerated sales, increasing from **500 orders/day to 5,000 orders/day**.  
 
-O sistema segue uma abordagem **orientada a eventos**, integrando um **broker de eventos** para orquestrar a comunicação entre serviços.
+**Order Flow:**
 
----
-
-## Escopo do Sistema
-
-O fluxo principal de pedidos inclui:
-
-1. O cliente realiza um pedido informando endereço e dados de pagamento;
-2. O sistema verifica elegibilidade do endereço;
-3. Em caso de endereço inválido, notifica o cliente via e-mail e cancela o pedido;
-4. Verifica disponibilidade dos produtos no estoque;
-5. Caso faltem produtos, notifica o cliente e cancela o pedido;
-6. Processa pagamento via gateway de terceiros;
-7. Inicia preparação do pedido se pagamento aprovado;
-8. Realiza envio via serviço de entrega e notifica cliente;
-9. Finaliza pedido com status entregue;
-10. Em caso de pagamento negado, notifica o cliente.
+1. Customer places an order with delivery address and payment info.  
+2. System validates the address; invalid addresses trigger cancellation & email notification.  
+3. Checks product availability in stock; missing products trigger cancellation & notification.  
+4. If address is valid and stock is sufficient, payment is processed via a third-party gateway.  
+5. Approved payments trigger order preparation.  
+6. After preparation, the order is shipped via a delivery service and the customer is notified.  
+7. Once delivered, the order status is updated to “delivered.”  
+8. Declined payments notify the customer immediately.  
+9. Any errors during processing send the order to a central operations hub for manual handling.  
 
 ---
 
-## Requisitos Funcionais
+## ⚙️ Architecture
 
-- Endereço e dados de pagamento são obrigatórios;
-- Entregas apenas para capitais;
-- Produto considerado em estoque quando houver pelo menos 3 unidades;
-- Cliente pode consultar situação do pedido.
+- **Event Broker** – Handles asynchronous communication between microservices (RabbitMQ, Kafka, etc.).  
+- **Microservices** – Independent modules for payments, inventory, logistics, and notifications.  
+- **Event Orchestration & Choreography** – Ensures reliable order processing.  
+- **API & Event Documentation** – OpenAPI & AsyncAPI for REST and event endpoints.  
+- **NestJS Modules & Providers** – Organized for scalability and maintainability.  
 
----
-
-## Requisitos Não Funcionais
-
-- **Alta disponibilidade e escalabilidade**: atender à demanda crescente de pedidos;
-- **Confiabilidade**: pedidos não podem ser perdidos e pagamentos duplicados não são aceitos;
-- **Consistência eventual**: pequenas latências na atualização do status de pedidos são aceitáveis;
-- **Extensibilidade**: permitir inclusão de novas funcionalidades com mínimo impacto.
+**Tech Stack:**  
+- NestJS / Node.js  
+- RabbitMQ / Kafka  
+- MongoDB / PostgreSQL  
+- Postman / BDD for automated tests  
 
 ---
 
-## Restrições
+## 📝 Requirements
 
-- Toda a solução deve ser implantada e executada na infraestrutura do cliente (**on-premise**) por questões legais.
+**Functional Requirements:**  
+- Mandatory address and payment info  
+- Deliveries limited to capital cities  
+- Product considered in stock if ≥ 3 units  
+- Customers can track order status  
 
----
+**Non-Functional Requirements:**  
+- High availability & scalability to handle demand growth  
+- Reliability: orders must not be lost; duplicate payments are prohibited  
+- Eventual consistency: minor delays in order status updates are acceptable  
+- Extensible architecture for future business evolution  
 
-## Arquitetura da Solução
-
-A arquitetura do sistema é baseada em:
-
-- **Broker de eventos** para comunicação assíncrona;
-- **Orquestração de eventos e coreografia** para processamento de pedidos;
-- Diagramas **OpenAPI** e **AsyncAPI** para documentação de APIs e eventos;
-- Serviços independentes para processamento de pagamentos, estoque e logística.
-
----
-
-## Execução do Projeto
-
-O desenvolvimento do projeto segue quatro etapas:
-
-1. **Escolha do broker e padrão arquitetural**: definir ferramentas e arquitetura mais adequadas;
-2. **Design da solução**: gerar artefatos de arquitetura, diagramas de eventos e documentação;
-3. **Testes**: criar cenários do caminho feliz usando **BDD** e automatizar com **Postman**;
-4. **Implementação**: codificar a solução baseada nos artefatos de design e realizar o **deploy**.
+**Constraints:**  
+- Entire solution must be deployed and run on the client’s **on-premise** infrastructure due to legal requirements  
 
 ---
 
-## Testes
+## ⚡ Development Workflow
 
-- Cenários principais do caminho feliz estão automatizados via **Postman**;
-- Possibilidade de comparar implementação própria com a solução de referência disponível no repositório.
+The project follows four main stages, as proposed in the book:
 
----
-
-## Deploy
-
-- A implantação deve ser realizada na infraestrutura on-premise do cliente;
-- A solução deve garantir alta disponibilidade, confiabilidade e escalabilidade conforme definido nos requisitos não funcionais.
+1. **Broker & Architecture Selection** – Choose the event broker and architectural pattern.  
+2. **Solution Design** – Create OpenAPI & AsyncAPI documentation, architecture diagrams, and event choreography diagrams.  
+3. **Testing** – Define happy-path scenarios using **BDD** and automate with **Postman**.  
+4. **Implementation** – Develop the solution according to design artifacts and tests, including deployment.  
 
 ---
 
-> **Nota:** Este projeto foi desenvolvido com fins educacionais e como exercício prático de implementação de soluções EDA, baseado no livro de Roberto Picanço.
+## 🧪 Testing
 
+- Happy-path scenarios automated with Postman  
+- Compare your implementation with the reference solution available in the GitHub repository  
+
+---
+
+## 📦 Deployment
+
+- On-premise deployment required  
+- Must satisfy reliability, scalability, and availability requirements  
+
+---
+
+> **Note:** Eventify is an educational project based on Roberto Picanço’s *Event-Driven Architecture: Scalable and Real-Time Solutions with EDA*. It demonstrates **NestJS microservices**, event-driven flows, and best practices for building scalable e-commerce platforms.
