@@ -13,7 +13,8 @@
         "registry": "https://npm.pkg.github.com/"
     },
     "scripts": {
-        "build": "tsc -p tsconfig.lib.json"
+        "build": "tsc -p tsconfig.lib.json",
+        "release": "standard-version && npm publish"
     },
     "dependencies": {
         "@nestjs/common": "^11.1.6",
