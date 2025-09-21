@@ -1,25 +1,25 @@
-import { Module, Global } from "@nestjs/common";
+import { Module } from "@nestjs/common";
+import { ClientsModule, Transport } from "@nestjs/microservices";
+import { KAFKA_PRODUCER } from "./constants/kafka.constant";
 import { KafkaService } from "./kafka.service";
-import { BaseProducer } from "./producers/base.producer";
-import { BaseConsumer } from "./consumers/base.consumer";
 
-export const KAFKA_CONFIG = "KAFKA_CONFIG";
-
-@Global()
 @Module({
-  providers: [
-    KafkaService,
-    BaseProducer,
-    BaseConsumer,
-    {
-      provide: KAFKA_CONFIG,
-      useValue: {
-        clientId: "eventify-service",
-        brokers: ["localhost:9092"],
-        groupId: "eventify-group", // usado no consumer
+  imports: [
+    ClientsModule.register([
+      {
+        name: KAFKA_PRODUCER,
+        transport: Transport.KAFKA,
+        options: {
+          client: {
+            clientId: "order-service",
+            brokers: ["localhost:29092"],
+          },
+          producerOnlyMode: true,
+        },
       },
-    },
+    ]),
   ],
+  providers: [KafkaService],
   exports: [KafkaService],
 })
 export class KafkaModule {}

@@ -1,6 +1,6 @@
 {
     "name": "@vilasboas1407/kafka",
-    "version": "1.2.5",
+    "version": "1.3.1",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "description": "Implements Kafka producer and consumer using kafkajs",
@@ -17,6 +17,7 @@
     },
     "dependencies": {
         "@nestjs/common": "^11.1.6",
+        "@nestjs/microservices": "^11.1.6",
         "kafkajs": "^2.2.4"
     }
 }

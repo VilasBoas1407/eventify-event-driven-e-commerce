@@ -1,32 +1,21 @@
-import { Injectable, OnModuleInit, OnModuleDestroy } from "@nestjs/common";
-import { BaseProducer } from "./producers/base.producer";
-import { BaseConsumer } from "./consumers/base.consumer";
+import { Inject, Injectable, OnModuleInit } from "@nestjs/common";
+import { ClientKafka } from "@nestjs/microservices";
+import { KAFKA_PRODUCER } from "./constants/kafka.constant";
 
 @Injectable()
-export class KafkaService implements OnModuleInit, OnModuleDestroy {
+export class KafkaService implements OnModuleInit {
   constructor(
-    private readonly producer: BaseProducer,
-    private readonly consumer: BaseConsumer
+    @Inject(KAFKA_PRODUCER) private readonly kafkaClient: ClientKafka
   ) {}
 
   async onModuleInit() {
-    await this.producer.connect();
-    await this.consumer.connect();
-  }
-
-  async onModuleDestroy() {
-    await this.producer.disconnect();
-    await this.consumer.disconnect();
+    await this.kafkaClient.connect();
   }
 
   async sendMessage(topic: string, message: any) {
-    await this.producer.sendMessage(topic, message);
-  }
-
-  async subscribe(
-    topic: string,
-    eachMessage: ({ message }: { message: any }) => Promise<void>
-  ) {
-    await this.consumer.subscribe(topic, eachMessage);
+    await this.kafkaClient.emit(topic, {
+      key: message.id || null,
+      value: JSON.stringify(message),
+    });
   }
 }
