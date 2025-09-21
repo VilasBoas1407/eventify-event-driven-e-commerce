@@ -8,6 +8,7 @@
 ## Summary
 - [Installation](#-installation)
 - [Kafka](#-kafka)
+- [Packages](#-packages)
 - [System Overview](#-system-overview)
 - [Architecture](#-architecture)
 - [Requirements](#-requirements)
@@ -91,7 +92,41 @@ http://localhost:8080
 | `order-created` | Order Service | Qualification Service, Inventory Service | Triggered whenever a new order is created. Services consume this event to process qualification and inventory updates. |
 
 
-## 📦 System Overview
+## 📦 Packages
+
+In addition to services, the project also includes internal packages that centralize implementations shared across microservices.
+
+Currently we have the package **@vilasboas1407/kafka**, which is responsible for:
+
+- Abstracting Kafka integration (producers and consumers).
+
+- Defining the event structures that can be emitted and consumed by the system.
+
+- Ensuring code standardization and reusability across services.
+
+🔄 **Updating a package**
+
+To update and publish a package:
+
+Increment the version in package.json (e.g., 1.0.0 → 1.0.1).
+
+Run the build:
+```bash
+  npm run build
+```
+
+Publish to the npm registry:
+``` bash
+npm publish
+```
+
+Update the version in the project(s) that use the package:
+``` bash
+npm install @eventify/kafka@latest
+```
+
+This process ensures that all microservices remain compatible and use the latest implementation.
+## 📝 System Overview
 
 The fictitious company **ABC** faced a major problem: its e-commerce system could not keep up with growing demand, which risked revenue loss and reduced credibility. The COVID-19 pandemic further accelerated sales, increasing from **500 orders/day to 5,000 orders/day**.  
 
