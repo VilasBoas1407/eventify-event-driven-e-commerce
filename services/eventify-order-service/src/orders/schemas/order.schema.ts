@@ -35,6 +35,7 @@ export class Customer {
   @Prop({ required: true, type: Object })
   deliveryAddress: DeliveryAddress;
 }
+
 export class Payment {
   cardId: string;
   bin: string;

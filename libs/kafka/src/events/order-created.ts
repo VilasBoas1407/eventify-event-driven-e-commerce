@@ -1,11 +1,22 @@
 export const ORDER_CREATED_EVENT = "order-created";
 
-export class OrderCreatedEvent {
-  constructor(orderId: string, costumerId: string) {
-    this.orderId = orderId;
-    this.costumerId = costumerId;
-  }
-
+export interface OrderCreatedEvent {
   orderId: string;
-  costumerId: string;
+  customerId: string;
+  deliveryAddress: DeliveryAddress;
+  items: ProductItem[];
+  createdAt: string;
+}
+
+export interface ProductItem {
+  productId: string;
+  count: number;
+}
+
+export interface DeliveryAddress {
+  street: string;
+  number: string;
+  postalCode: string;
+  city: string;
+  state: string;
 }

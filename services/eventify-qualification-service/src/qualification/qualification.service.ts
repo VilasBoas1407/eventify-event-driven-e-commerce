@@ -1,12 +1,13 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { OrderCreatedEvent } from '@vilasboas1407/kafka';
 
 @Injectable()
 export class QualificationService {
   private readonly logger = new Logger(QualificationService.name);
 
-  async process(data: any) {
+  async process(data: OrderCreatedEvent) {
     this.logger.log(
-      `Processando qualificação para o pedido: ${JSON.stringify(data)}`,
+      `Processing order - ${data.orderId}: ${JSON.stringify(data)}`,
     );
   }
 }
