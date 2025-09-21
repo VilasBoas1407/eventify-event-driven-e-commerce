@@ -1,34 +1,34 @@
-// @ts-check
-import eslint from '@eslint/js';
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
-import globals from 'globals';
-import tseslint from 'typescript-eslint';
+import { FlatCompat } from '@eslint/eslintrc';
+const compat = new FlatCompat({ recommended: true });
 
-export default tseslint.config(
+export default [
+  // Integra ESLint com Prettier
+  ...compat.extends('eslint:recommended'),
+  ...compat.extends('plugin:prettier/recommended'),
+
   {
-    ignores: ['eslint.config.mjs'],
-  },
-  eslint.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
-  eslintPluginPrettierRecommended,
-  {
+    files: ['*.ts', '*.js'],
     languageOptions: {
-      globals: {
-        ...globals.node,
-        ...globals.jest,
-      },
-      sourceType: 'commonjs',
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-      },
+      ecmaVersion: 'latest',
+      sourceType: 'module',
     },
-  },
-  {
     rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-floating-promises': 'warn',
-      '@typescript-eslint/no-unsafe-argument': 'warn'
+      // Regras Prettier
+      'prettier/prettier': [
+        'error',
+        {
+          semi: true,
+          singleQuote: true,
+          printWidth: 100,
+          tabWidth: 2,
+          trailingComma: 'es5',
+          arrowParens: 'always',
+          endOfLine: 'lf', // ⚠️ força LF
+        },
+      ],
+
+      // Garantir LF para ESLint
+      'linebreak-style': ['error', 'unix'],
     },
   },
-);
+];
