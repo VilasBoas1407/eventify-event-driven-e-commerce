@@ -122,7 +122,7 @@ npm publish
 
 Update the version in the project(s) that use the package:
 ``` bash
-npm install @eventify/kafka@latest
+npm install @vilasboas1407/kafka@latest
 ```
 
 This process ensures that all microservices remain compatible and use the latest implementation.
