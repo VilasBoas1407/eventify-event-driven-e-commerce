@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.10.0](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/compare/v1.9.0...v1.10.0) (2025-09-22)
+
+
+### Features
+
+* **kakfa:** adding order-canceled event ([2c7352a](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/commit/2c7352aadcb44cceaeff98ffac864cc2ccaa78cf))
+
 ## [1.9.0](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/compare/v1.8.0...v1.9.0) (2025-09-22)
 
 
