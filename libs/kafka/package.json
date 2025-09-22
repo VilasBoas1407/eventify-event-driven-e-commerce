@@ -1,6 +1,6 @@
 {
     "name": "@vilasboas1407/kafka",
-    "version": "1.6.2",
+    "version": "1.6.3",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "description": "Implements Kafka producer and consumer using kafkajs",
@@ -14,7 +14,7 @@
     },
     "scripts": {
         "build": "tsc -p tsconfig.lib.json",
-        "release": "standard-version && npm publish"
+        "release": "npm run build && standard-version && npm publish"
     },
     "dependencies": {
         "@nestjs/common": "^11.1.6",

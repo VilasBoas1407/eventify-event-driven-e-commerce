@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.3](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/compare/v1.6.2...v1.6.3) (2025-09-22)
+
 ### [1.6.2](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/compare/v1.6.0...v1.6.2) (2025-09-21)
 
 
