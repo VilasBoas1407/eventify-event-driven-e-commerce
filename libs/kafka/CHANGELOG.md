@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/compare/v1.6.3...v1.7.0) (2025-09-22)
+
+
+### Features
+
+* adding dlq support to event order-qualified ([b5df2eb](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/commit/b5df2eb18c1c7d0ed3c669a3b80b7cd887903f8e))
+
 ### [1.6.3](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/compare/v1.6.2...v1.6.3) (2025-09-22)
 
 ### [1.6.2](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/compare/v1.6.0...v1.6.2) (2025-09-21)
