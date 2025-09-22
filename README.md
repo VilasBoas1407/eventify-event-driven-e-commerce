@@ -107,31 +107,27 @@ To update and publish a package using standard-version:
 
 Increment the version automatically
 Standard-version will bump the version based on your commit messages (following conventional commits). You just need to run:
-
+```bash
 npm run release
-
+```
 
 This will:
 
-Update the version in package.json
+- Update the version in package.json
 
-Generate or update the CHANGELOG.md
+- Generate or update the CHANGELOG.md
 
-Commit the changes
+- Commit the changes
 
-Build the package
+- Build the package
 
-npm run build
-
-
-Publish to the npm registry
-
-npm publish
+- Publish to the npm registry
 
 
-Update the package in other projects
-
+**Update the package in other projects**
+```bash
 npm install @vilasboas1407/kafka@latest
+```
 
 
 💡 Note: This workflow leverages the standard-version library, which automates version management and changelog generation. By using npm run release, you no longer need to manually edit the version or the changelog.
