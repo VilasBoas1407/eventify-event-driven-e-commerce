@@ -1,5 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { KafkaService, OrderCreatedEvent } from '@vilasboas1407/kafka';
+import {
+  KafkaService,
+  ORDER_QUALIFIED_EVENT,
+  OrderCreatedEvent,
+  OrderQualifiedEvent,
+} from '@vilasboas1407/kafka';
 
 @Injectable()
 export class QualificationService {
@@ -20,9 +25,9 @@ export class QualificationService {
       qualified: isCapital,
       reason,
       qualifiedAt: new Date(),
-    };
+    } as OrderQualifiedEvent;
 
-    await this.kafkaService.sendMessage('order-qualified', message);
+    await this.kafkaService.sendMessage(ORDER_QUALIFIED_EVENT, message);
   }
 
   isCapital(city: string): boolean {
