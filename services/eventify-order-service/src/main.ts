@@ -14,8 +14,8 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
-    .setTitle('Psiu API')
-    .setDescription('API aplicação Psiu - Psicólogos')
+    .setTitle('order-service-api')
+    .setDescription('API Eventify Order Service')
     .setVersion('1.0')
     .addBearerAuth({
       type: 'http',
