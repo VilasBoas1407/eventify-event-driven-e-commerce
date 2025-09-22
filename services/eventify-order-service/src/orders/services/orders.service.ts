@@ -1,8 +1,16 @@
-import { KafkaService, ORDER_CREATED_EVENT, OrderCreatedEvent } from '@vilasboas1407/kafka';
+import {
+  KafkaService,
+  ORDER_CREATED_EVENT,
+  OrderCreatedEvent,
+  OrderQualifiedEvent,
+  ORDER_CANCELED_EVENT,
+  OrderCanceledEvent,
+} from '@vilasboas1407/kafka';
 import { CreateOrderRequest } from '../contracts/create-order.contract';
 import { Order } from '../schemas/order.schema';
 import { OrderRepository } from '../repository/orders.repository';
 import { Injectable, Logger } from '@nestjs/common';
+import { OrderStatus } from 'src/shared/enum/OrderStatus';
 
 @Injectable()
 export class OrderService {

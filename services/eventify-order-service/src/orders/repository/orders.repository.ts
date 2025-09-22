@@ -12,10 +12,14 @@ export class OrderRepository {
 
   async create(order: CreateOrderRequest): Promise<Order> {
     const createdOrder = new this.orderModel(order);
-    createdOrder.orderStatus = OrderStatus.CREATED;
+    createdOrder.status = OrderStatus.CREATED;
     createdOrder.save();
 
     return createdOrder;
+  }
+
+  async update(order: Order): Promise<void> {
+    await this.orderModel.findByIdAndUpdate(order.id, order).exec();
   }
 
   async findById(id: string): Promise<Order | null> {

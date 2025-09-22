@@ -58,6 +58,23 @@ export class Order extends BaseSchema {
   @Prop({ required: true, type: Object })
   payment: Payment;
 
-  orderStatus: OrderStatus;
+  @Prop({ required: true, enum: OrderStatus, default: OrderStatus.CREATED })
+  status: OrderStatus;
+
+  @Prop()
+  qualifiedAt?: Date;
+
+  @Prop()
+  reservedAt?: Date;
+
+  @Prop()
+  confirmedAt?: Date;
+
+  @Prop()
+  canceledAt?: Date;
+
+  @Prop()
+  canceledReason?: string;
 }
+
 export const OrderSchema = SchemaFactory.createForClass(Order);

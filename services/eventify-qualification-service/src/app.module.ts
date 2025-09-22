@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { QualificationModule } from './qualification/qualification.module';
-import { QualificationConsumer } from './events/qualification-order-created.consumer';
+import { QualificationConsumer } from './events/order-created.consumer';
 
 @Module({
   imports: [QualificationModule],
