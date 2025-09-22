@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.11.0](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/compare/v1.10.0...v1.11.0) (2025-09-22)
+
+
+### Features
+
+* **kafka-lib:** creating order-confirmed event ([abefb47](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/commit/abefb47f49920f1fda6380b928f9ca4a85d0fd9d))
+
 ## [1.10.0](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/compare/v1.9.0...v1.10.0) (2025-09-22)
 
 
