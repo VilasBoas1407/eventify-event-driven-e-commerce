@@ -9,15 +9,8 @@ All notable changes to this project will be documented in this file. See [standa
 
 * **kafka-lib:** adding order-canceled event ([a400491](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/commit/a40049173017fef19c92857cffe552126b5281f1))
 
-## [1.8.0](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/compare/v1.7.0...v1.8.0) (2025-09-22)
-
-
-### Features
-
-* update consumir to check postal code, via API Via Cep ([4b55bbd](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/commit/4b55bbd2b461ad360dd251dc0f94272afec086f2))
 
 ## [1.7.0](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/compare/v1.6.3...v1.7.0) (2025-09-22)
-
 
 ### Features
 
