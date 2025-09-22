@@ -19,18 +19,28 @@ export class ProductItemRequest {
 
 export class DeliveryAddressRequest {
   @ApiProperty({ description: 'Street of the delivery address' })
+  @IsString()
+  @IsNotEmpty()
   street: string;
 
   @ApiProperty({ description: 'Number of the delivery address' })
+  @IsString()
+  @IsNotEmpty()
   number: string;
 
   @ApiProperty({ description: 'Postal code of the delivery address' })
+  @IsString()
+  @IsNotEmpty()
   postalCode: string;
 
   @ApiProperty({ description: 'City of the delivery address' })
+  @IsString()
+  @IsNotEmpty()
   city: string;
 
   @ApiProperty({ description: 'State of the delivery address' })
+  @IsString()
+  @IsNotEmpty()
   state: string;
 }
 
@@ -56,6 +66,7 @@ export class CustomerRequest {
   email: string;
 
   @ApiProperty({ type: DeliveryAddressRequest, description: 'Delivery address' })
+  @ValidateNested()
   @Type(() => DeliveryAddressRequest)
   deliveryAddress: DeliveryAddressRequest;
 }
