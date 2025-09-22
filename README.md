@@ -103,29 +103,41 @@ Currently we have the package **@vilasboas1407/kafka**, which is responsible for
 - Defining the event structures that can be emitted and consumed by the system.
 
 - Ensuring code standardization and reusability across services.
+To update and publish a package using standard-version:
 
-🔄 **Updating a package**
+Increment the version automatically
+Standard-version will bump the version based on your commit messages (following conventional commits). You just need to run:
 
-To update and publish a package:
+npm run release
 
-Increment the version in package.json (e.g., 1.0.0 → 1.0.1).
 
-Run the build:
-```bash
-  npm run build
-```
+This will:
 
-Publish to the npm registry:
-``` bash
+Update the version in package.json
+
+Generate or update the CHANGELOG.md
+
+Commit the changes
+
+Build the package
+
+npm run build
+
+
+Publish to the npm registry
+
 npm publish
-```
 
-Update the version in the project(s) that use the package:
-``` bash
+
+Update the package in other projects
+
 npm install @vilasboas1407/kafka@latest
-```
+
+
+💡 Note: This workflow leverages the standard-version library, which automates version management and changelog generation. By using npm run release, you no longer need to manually edit the version or the changelog.
 
 This process ensures that all microservices remain compatible and use the latest implementation.
+
 ## 📝 System Overview
 
 The fictitious company **ABC** faced a major problem: its e-commerce system could not keep up with growing demand, which risked revenue loss and reduced credibility. The COVID-19 pandemic further accelerated sales, increasing from **500 orders/day to 5,000 orders/day**.  
