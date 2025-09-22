@@ -1,9 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { OrderCreatedEvent } from '@vilasboas1407/kafka';
+import { KafkaService, OrderCreatedEvent } from '@vilasboas1407/kafka';
 
 @Injectable()
 export class QualificationService {
   private readonly logger = new Logger(QualificationService.name);
+  constructor(private readonly kafkaService: KafkaService) {}
 
   async process(data: OrderCreatedEvent) {
     this.logger.log(
@@ -12,15 +13,16 @@ export class QualificationService {
 
     const isCapital = this.isCapital(data.deliveryAddress.city);
 
-    if (isCapital) {
-      this.logger.log(
-        `Order ${data.orderId} is from a capital city: ${data.deliveryAddress.city}`,
-      );
-    } else {
-      this.logger.log(
-        `Order ${data.orderId} is NOT from a capital city: ${data.deliveryAddress.city}`,
-      );
-    }
+    const reason = !isCapital ? 'Customer is not from a capital city' : '';
+
+    const message = {
+      orderId: data.orderId,
+      qualified: isCapital,
+      reason,
+      qualifiedAt: new Date(),
+    };
+
+    await this.kafkaService.sendMessage('order-qualified', message);
   }
 
   isCapital(city: string): boolean {
