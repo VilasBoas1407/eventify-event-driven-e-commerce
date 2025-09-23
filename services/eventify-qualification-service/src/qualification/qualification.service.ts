@@ -41,6 +41,7 @@ export class QualificationService {
       message.reason = !isCapital ? 'Customer is not from a capital city' : '';
 
       await this.kafkaService.sendMessage(ORDER_QUALIFIED_EVENT, message);
+      this.logger.log(`Processed order - ${data.orderId}`);
     } catch (error) {
       this.logger.error(
         `Failed to process order ${data.orderId}: ${error.message}`,

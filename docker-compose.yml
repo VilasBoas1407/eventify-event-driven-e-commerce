@@ -91,10 +91,17 @@ services:
           echo "Waiting Kafka..."
           sleep 2
         done
-        kafka-topics.sh --create --topic order-created --bootstrap-server kafka:9092 --partitions 1 --replication-factor 1
+        kafka
+        -topics.sh --create --topic order-created --bootstrap-server kafka:9092 --partitions 1 --replication-factor 1
+        kafka-topics.sh --create --topic order-created-dlq --bootstrap-server kafka:9092 --partitions 1 --replication-factor 1
         kafka-topics.sh --create --topic order-updated --bootstrap-server kafka:9092 --partitions 1 --replication-factor 1
+        kafka-topics.sh --create --topic order-updated-dlq --bootstrap-server kafka:9092 --partitions 1 --replication-factor 1
         kafka-topics.sh --create --topic order-qualified --bootstrap-server kafka:9092 --partitions 1 --replication-factor 1
         kafka-topics.sh --create --topic order-qualified-dlq --bootstrap-server kafka:9092 --partitions 1 --replication-factor 1
+        kafka-topics.sh --create --topic order-confirmed --bootstrap-server kafka:9092 --partitions 1 --replication-factor 1
+        kafka-topics.sh --create --topic order-confirmed-dlq --bootstrap-server kafka:9092 --partitions 1 --replication-factor 1
+        kafka-topics.sh --create --topic order-canceled --bootstrap-server kafka:9092 --partitions 1 --replication-factor 1
+        kafka-topics.sh --create --topic order-canceled-dlq --bootstrap-server kafka:9092 --partitions 1 --replication-factor 1
         echo "Topics created!"
         tail -f /dev/null
 
