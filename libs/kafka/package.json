@@ -1,6 +1,6 @@
 {
     "name": "@vilasboas1407/kafka",
-    "version": "1.11.0",
+    "version": "1.12.0",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "description": "Implements Kafka producer and consumer using kafkajs",

@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.12.0](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/compare/v1.11.0...v1.12.0) (2025-09-24)
+
+
+### Features
+
+* **kafka-lib:** adding email on order-created event ([078cba6](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/commit/078cba64d5132ec8d4690b1a6decd28cab91693c))
+* **order-service:** Consumer order-qualified ([3281245](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/commit/328124597444bc79e560f3e8aaf22e4a0ae13fbd))
+* **order-service:** creating use case to handle with order-qualified ([a822cce](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/commit/a822cced946992ba42deeefaeefb17037431f9cb))
+
 ## [1.11.0](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/compare/v1.10.0...v1.11.0) (2025-09-22)
 
 
