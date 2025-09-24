@@ -6,11 +6,12 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Order, OrderSchema } from './schemas/order.schema';
 import { KafkaModule } from '@vilasboas1407/kafka';
 import { HandleOrderQualifiedUseCase } from './useCases/handle-order-qualified.use-case';
-import { OrderQualifiedConsumer } from 'src/events/order-qualified.consumer';
+import { OrderQualifiedConsumer } from 'src/orders/consumers/order-qualified.consumer';
+import { HandleCreateOrderUseCase } from './useCases/create-order.use-case';
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: Order.name, schema: OrderSchema }]), KafkaModule],
   controllers: [OrdersController, OrderQualifiedConsumer],
-  providers: [OrderService, OrderRepository, HandleOrderQualifiedUseCase],
+  providers: [OrderService, OrderRepository, HandleOrderQualifiedUseCase, HandleCreateOrderUseCase],
 })
 export class OrdersModule {}
