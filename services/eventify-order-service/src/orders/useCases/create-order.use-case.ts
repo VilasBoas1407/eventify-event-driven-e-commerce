@@ -5,8 +5,8 @@ import { KafkaService, ORDER_CREATED_EVENT, OrderCreatedEvent } from '@vilasboas
 import { Order } from '../schemas/order.schema';
 
 @Injectable()
-export class HandleCreateOrderUseCase {
-  private readonly logger = new Logger(HandleCreateOrderUseCase.name);
+export class CreateOrderUseCase {
+  private readonly logger = new Logger(CreateOrderUseCase.name);
   constructor(
     private readonly orderRepository: OrderRepository,
     private readonly kafkaService: KafkaService
