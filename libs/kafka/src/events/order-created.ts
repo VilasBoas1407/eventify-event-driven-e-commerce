@@ -3,6 +3,7 @@ export const ORDER_CREATED_EVENT = "order-created";
 export interface OrderCreatedEvent {
   orderId: string;
   customerId: string;
+  customerEmail: string;
   deliveryAddress: DeliveryAddress;
   items: ProductItem[];
   createdAt: string;
