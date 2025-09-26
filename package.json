@@ -13,7 +13,8 @@
         "start:order-service": "cd services/eventify-order-service && nest start",
         "start:quality-service": "cd services/eventify-quality-service && nest start",
         "start:all": "npm run start:order-service && npm run start:quality-service",
-        "release": "standard-version"
+        "release": "standard-version && git push --follow-tags origin main",
+        "release:lib": "cd libs/kafka && npm run release"
     },
     "devDependencies": {
         "standard-version": "^9.5.0"
