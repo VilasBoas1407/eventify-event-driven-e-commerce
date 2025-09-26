@@ -9,8 +9,8 @@ import {
 import axios from 'axios';
 
 @Injectable()
-export class QualificateOrderUseCase {
-  private readonly logger = new Logger(QualificateOrderUseCase.name);
+export class QualificationOrderUseCase {
+  private readonly logger = new Logger(QualificationOrderUseCase.name);
   constructor(private readonly kafkaService: KafkaService) {}
 
   async execute(data: OrderCreatedEvent) {
