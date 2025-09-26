@@ -4,6 +4,7 @@ export interface OrderCreatedEvent {
   orderId: string;
   customerId: string;
   customerEmail: string;
+  customerName: string;
   deliveryAddress: DeliveryAddress;
   items: ProductItem[];
   createdAt: string;
