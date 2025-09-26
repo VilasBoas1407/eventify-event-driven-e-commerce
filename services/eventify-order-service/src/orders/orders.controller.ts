@@ -2,14 +2,14 @@ import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { OrderService } from './services/orders.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateOrderRequest } from './contracts/create-order.contract';
-import { HandleCreateOrderUseCase } from './useCases/create-order.use-case';
+import { CreateOrderUseCase } from './useCases/create-order.use-case';
 
 @ApiTags('orders')
 @Controller('api/orders')
 export class OrdersController {
   constructor(
     private readonly ordersService: OrderService,
-    private readonly handleCreateOrderUseCase: HandleCreateOrderUseCase
+    private readonly handleCreateOrderUseCase: CreateOrderUseCase
   ) {}
 
   @Get()

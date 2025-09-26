@@ -1,19 +1,19 @@
 import { Injectable, Logger } from '@nestjs/common';
 import {
   KafkaService,
-  ORDER_QUALIFIED_EVENT,
   ORDER_QUALIFIED_DLQ_EVENT,
+  ORDER_QUALIFIED_EVENT,
   OrderCreatedEvent,
   OrderQualifiedEvent,
 } from '@vilasboas1407/kafka';
 import axios from 'axios';
 
 @Injectable()
-export class QualificationService {
-  private readonly logger = new Logger(QualificationService.name);
+export class QualificateOrderUseCase {
+  private readonly logger = new Logger(QualificateOrderUseCase.name);
   constructor(private readonly kafkaService: KafkaService) {}
 
-  async process(data: OrderCreatedEvent) {
+  async execute(data: OrderCreatedEvent) {
     try {
       this.logger.log(
         `Processing order - ${data.orderId}: ${JSON.stringify(data)}`,

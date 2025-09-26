@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { QualificationService } from './qualification.service';
 import { KafkaModule } from '@vilasboas1407/kafka';
+import { QualificateOrderUseCase } from './useCases/qualificate-order-use-case';
 
 @Module({
   imports: [KafkaModule],
-  providers: [QualificationService],
-  exports: [QualificationService],
+  providers: [QualificateOrderUseCase],
+  exports: [],
 })
 export class QualificationModule {}
