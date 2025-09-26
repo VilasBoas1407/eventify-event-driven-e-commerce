@@ -1,6 +1,6 @@
 {
     "name": "eventify-eda",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "Eventify - Event-Driven Architecture Example",
     "author": "Lucas Vilas Boas",
     "license": "MIT",
@@ -11,7 +11,8 @@
     ],
     "scripts": {
         "start:order-service": "cd services/eventify-order-service && nest start",
-        "start:all": "docker-compose up --build",
+        "start:quality-service": "cd services/eventify-quality-service && nest start",
+        "start:all": "npm run start:order-service && npm run start:quality-service",
         "release": "standard-version"
     },
     "devDependencies": {
