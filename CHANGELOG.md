@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/compare/v1.12.2...v1.2.0) (2025-09-26)
+
+
+### Features
+
+* creating notification-service to send email when order-created ([823058f](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/commit/823058f961571bc7371db41a51ead3d1f23a458e))
+
 ### [1.1.2](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/compare/v1.1.1...v1.1.2) (2025-09-26)
 
 ### [1.1.1](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/compare/v1.1.0...v1.1.1) (2025-09-26)
