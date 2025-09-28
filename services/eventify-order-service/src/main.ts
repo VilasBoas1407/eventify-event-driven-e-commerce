@@ -9,8 +9,8 @@ async function bootstrap() {
 
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true, // remove propriedades que não estão no DTO
-      transform: true, // transforma JSON em instância da classe
+      whitelist: true,
+      transform: true,
     })
   );
 
@@ -30,7 +30,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api-docs', app, document);
 
-  // Microservice Kafka
   const kafkaMicroservice = app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.KAFKA,
     options: {

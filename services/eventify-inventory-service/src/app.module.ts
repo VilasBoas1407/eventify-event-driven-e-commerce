@@ -1,14 +1,12 @@
 import { Module } from '@nestjs/common';
-import { InventoryController } from './inventory/controllers/inventory.controller';
 import { InventoryModule } from './inventory/inventory.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ProductController } from './inventory/controllers/product.controller';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true, // torna as variáveis disponíveis em todo o app
+      isGlobal: true,
     }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],

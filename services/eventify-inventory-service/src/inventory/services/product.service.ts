@@ -15,4 +15,14 @@ export class ProductService {
     if (!product) throw new NotFoundException('Produto not found');
     return product;
   }
+
+  async findByIds(ids: string[]): Promise<Product[]> {
+    return this.productRepository.findByIds(ids);
+  }
+
+  async updateStock(productId: string, quantity: number): Promise<void> {
+    const product = await this.getById(productId);
+    product.stock += quantity;
+    await this.productRepository.update(product);
+  }
 }

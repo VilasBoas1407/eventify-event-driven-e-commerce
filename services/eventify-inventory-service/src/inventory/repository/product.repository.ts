@@ -29,4 +29,8 @@ export class ProductRepository {
   async findAll(): Promise<Product[]> {
     return this.productModel.find().exec();
   }
+
+  async findByIds(ids: string[]): Promise<Product[]> {
+    return this.productModel.find({ _id: { $in: ids } }).exec();
+  }
 }

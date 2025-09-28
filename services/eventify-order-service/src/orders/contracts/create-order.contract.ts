@@ -11,10 +11,6 @@ export class ProductItemRequest {
   @ApiProperty({ description: 'Quantity of the product' })
   @IsNotEmpty()
   count: number;
-
-  @ApiProperty({ description: 'Price of the product' })
-  @IsNotEmpty()
-  price: number;
 }
 
 export class DeliveryAddressRequest {

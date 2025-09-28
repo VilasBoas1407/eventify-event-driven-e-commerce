@@ -11,6 +11,9 @@ import { ProductRepository } from './repository/product.repository';
 import { CreateProductUseCase } from './useCases/create-product.use-case';
 import { ProductService } from './services/product.service';
 import { ProductController } from './controllers/product.controller';
+import { ReservationRepository } from './repository/product-reservation.repository';
+import { OrderCreatedConsumer } from './consumers/order-created.consumer';
+import { HandleOrderCreatedUseCase } from './useCases/handler-order-created.use-case';
 
 @Module({
   imports: [
@@ -20,7 +23,13 @@ import { ProductController } from './controllers/product.controller';
     ]),
     KafkaModule,
   ],
-  controllers: [InventoryController, ProductController],
-  providers: [ProductRepository, CreateProductUseCase, ProductService],
+  controllers: [InventoryController, ProductController, OrderCreatedConsumer],
+  providers: [
+    ProductRepository,
+    ReservationRepository,
+    CreateProductUseCase,
+    ProductService,
+    HandleOrderCreatedUseCase,
+  ],
 })
 export class InventoryModule {}

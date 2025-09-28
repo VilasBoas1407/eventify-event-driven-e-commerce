@@ -1,7 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { BaseSchema } from 'src/shared/BaseSchema';
-
-@Schema()
+@Schema({ collection: 'product-reservation' })
 export class ProductReservation extends BaseSchema {
   @Prop({ required: true })
   productId: string;
