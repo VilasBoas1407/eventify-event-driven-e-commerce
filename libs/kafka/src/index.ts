@@ -6,3 +6,4 @@ export * from "./events/order-qualified";
 export * from "./constants/kafka.constant";
 export * from "./events/order-canceled";
 export * from "./events/order-confirmed";
+export * from "./events/order-reserved";
