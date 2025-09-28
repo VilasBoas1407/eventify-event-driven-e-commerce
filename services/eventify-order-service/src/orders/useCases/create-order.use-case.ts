@@ -32,6 +32,7 @@ export class CreateOrderUseCase {
       orderId: order.id,
       customerEmail: order.customer.email,
       customerId: order.customer.id,
+      customerName: order.customer.firstName + ' ' + order.customer.lastName,
       items: order.items.map((item) => ({ productId: item.productId, count: item.count })),
       deliveryAddress: order.customer.deliveryAddress,
       createdAt: order.createdAt.toISOString(),
