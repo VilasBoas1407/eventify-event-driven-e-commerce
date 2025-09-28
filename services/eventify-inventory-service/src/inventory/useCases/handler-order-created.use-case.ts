@@ -1,5 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { OrderCreatedEvent } from '@vilasboas1407/kafka';
+import {
+  KafkaService,
+  ORDER_RESERVED_EVENT,
+  OrderCreatedEvent,
+} from '@vilasboas1407/kafka';
+import type { OrderReservedEvent } from '@vilasboas1407/kafka';
 import { ProductService } from '../services/product.service';
 import { ProductReservationDTO } from '../contracts/product-reservation.dto';
 import { ReservationRepository } from '../repository/product-reservation.repository';
@@ -11,6 +16,7 @@ export class HandleOrderCreatedUseCase {
   constructor(
     private readonly productService: ProductService,
     private readonly reservationRepository: ReservationRepository,
+    private readonly kafkaService: KafkaService,
   ) {}
 
   async execute(message: OrderCreatedEvent) {
@@ -26,7 +32,9 @@ export class HandleOrderCreatedUseCase {
       }
 
       if (product.stock < item.count) {
-        throw new Error(`Product with ID ${item.productId} not found`);
+        throw new Error(
+          `Don't have enougth products ${product.name} on stock for the order : ${message.orderId}`,
+        );
       }
 
       reservations.push({
@@ -47,9 +55,11 @@ export class HandleOrderCreatedUseCase {
     }
 
     await Promise.all(tasks);
+
+    await this.sendOrderReservatedEvent(message.orderId);
   }
 
-  async createReservation(reservation: ProductReservationDTO) {
+  private async createReservation(reservation: ProductReservationDTO) {
     this.logger.log(
       `Creating reservation for product ID ${reservation.productId}, quantity ${reservation.quantity}`,
     );
@@ -58,5 +68,14 @@ export class HandleOrderCreatedUseCase {
       reservation.productId,
       -reservation.quantity,
     );
+  }
+
+  private async sendOrderReservatedEvent(orderId: string) {
+    const message: OrderReservedEvent = {
+      orderId: orderId,
+      reservedAt: new Date(),
+    };
+
+    this.kafkaService.sendMessage(ORDER_RESERVED_EVENT, message);
   }
 }
