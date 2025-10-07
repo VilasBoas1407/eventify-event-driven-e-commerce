@@ -56,7 +56,7 @@ export class HandleOrderQualifiedUseCase {
     const message: OrderCanceledEvent = {
       orderId: order.id,
       reason: reason || 'Not specified',
-      canceledAt: order.canceledAt.toISOString(),
+      canceledAt: order.canceledAt,
     };
 
     await this.kafkaService.sendMessage(ORDER_CANCELED_EVENT, message);
