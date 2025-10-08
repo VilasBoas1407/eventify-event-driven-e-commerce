@@ -1,7 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { ProductRepository } from '../repository/product.repository';
-import { CreateProductRequest } from '../contracts/create-product.contract';
-import { Product } from '../schema/product.schema';
+import { ProductRepository } from '../../repository/product.repository';
+import { CreateProductRequest } from '../../contracts/create-product.contract';
 
 @Injectable()
 export class CreateProductUseCase {
@@ -10,9 +9,7 @@ export class CreateProductUseCase {
   async execute(request: CreateProductRequest): Promise<string> {
     const existing = await this.productRepository.findBySku(request.sku);
     if (existing) {
-      throw new BadRequestException(
-        `Product with SKU ${request.sku} already exists.`,
-      );
+      throw new BadRequestException('Product with this SKU already exists');
     }
 
     const savedProduct = await this.productRepository.create(request);

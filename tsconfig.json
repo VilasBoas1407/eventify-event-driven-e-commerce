@@ -7,7 +7,10 @@
     "skipLibCheck": true,
     "moduleResolution": "node",
     "lib": ["ES2017", "DOM"],
-
+    "baseUrl": ".",
+    "paths": {
+      "src/*": ["src/*"]
+    },
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   }
