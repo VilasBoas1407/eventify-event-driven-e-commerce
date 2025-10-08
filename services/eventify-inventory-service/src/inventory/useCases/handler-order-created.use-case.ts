@@ -7,9 +7,9 @@ import {
   ORDER_CANCELED_EVENT,
 } from '@vilasboas1407/kafka';
 import type { OrderReservedEvent } from '@vilasboas1407/kafka';
-import { ProductService } from '../../services/product.service';
-import { ProductReservationDTO } from '../../contracts/product-reservation.dto';
-import { ReservationRepository } from '../../repository/product-reservation.repository';
+import { ProductService } from '../services/product.service';
+import { ProductReservationDTO } from '../contracts/product-reservation.dto';
+import { ReservationRepository } from '../repository/product-reservation.repository';
 
 @Injectable()
 export class HandleOrderCreatedUseCase {

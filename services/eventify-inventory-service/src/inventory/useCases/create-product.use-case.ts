@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { ProductRepository } from '../../repository/product.repository';
-import { CreateProductRequest } from '../../contracts/create-product.contract';
+import { ProductRepository } from '../repository/product.repository';
+import { CreateProductRequest } from '../contracts/create-product.contract';
 
 @Injectable()
 export class CreateProductUseCase {

@@ -1,6 +1,6 @@
-import { CreateProductUseCase } from './create-product.use-case';
-import { ProductRepository } from '../../repository/product.repository';
-import { CreateProductRequest } from '../../contracts/create-product.contract';
+import { CreateProductUseCase } from '../../../src/inventory/useCases/create-product.use-case';
+import { ProductRepository } from '../../../src/inventory/repository/product.repository';
+import { CreateProductRequest } from '../../../src/inventory/contracts/create-product.contract';
 
 describe('CreateProductUseCase', () => {
   let useCase: CreateProductUseCase;

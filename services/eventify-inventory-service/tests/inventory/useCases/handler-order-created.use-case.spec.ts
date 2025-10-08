@@ -1,6 +1,6 @@
-import { HandleOrderCreatedUseCase } from '../../useCases/handle-order-created/handler-order-created.use-case';
-import { ProductService } from '../../services/product.service';
-import { ReservationRepository } from '../../repository/product-reservation.repository';
+import { HandleOrderCreatedUseCase } from '../../../src/inventory/useCases/handler-order-created.use-case';
+import { ProductService } from '../../../src/inventory/services/product.service';
+import { ReservationRepository } from '../../../src/inventory/repository/product-reservation.repository';
 import {
   KafkaService,
   ORDER_RESERVED_EVENT,
