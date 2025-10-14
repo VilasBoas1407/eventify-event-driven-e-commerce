@@ -47,7 +47,7 @@ export class Payment {
   expirationYear: string;
 }
 
-@Schema()
+@Schema({ optimisticConcurrency: true })
 export class Order extends BaseSchema {
   @Prop({ required: true, type: Array })
   items: ProductItem[];
