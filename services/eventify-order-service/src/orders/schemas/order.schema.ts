@@ -58,7 +58,7 @@ export class Order extends BaseSchema {
   @Prop({ required: true, type: Object })
   payment: Payment;
 
-  @Prop({ required: true, enum: OrderStatus, default: OrderStatus.CREATED })
+  @Prop({ type: String, required: true, enum: OrderStatus, default: OrderStatus.CREATED })
   status: OrderStatus;
 
   @Prop()

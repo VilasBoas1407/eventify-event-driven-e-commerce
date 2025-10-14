@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { KafkaService, OrderQualifiedEvent } from '@vilasboas1407/kafka';
+import { Controller, Logger } from '@nestjs/common';
+import { KafkaService, OrderReservedEvent } from '@vilasboas1407/kafka';
 import { OrderRepository } from '../repository/orders.repository';
 import { OrderStatus } from 'src/shared/enum/OrderStatus';
 import { HandlerOrderBase } from './handle-base-order.use-case';
-@Injectable()
-export class HandleOrderQualifiedUseCase extends HandlerOrderBase {
+
+@Controller()
+export class HandlerOrderReservatedUseCase extends HandlerOrderBase {
   constructor(
     protected readonly orderRepository: OrderRepository,
     protected readonly kafkaService: KafkaService
@@ -12,7 +13,7 @@ export class HandleOrderQualifiedUseCase extends HandlerOrderBase {
     super(orderRepository, kafkaService);
   }
 
-  async execute(message: OrderQualifiedEvent): Promise<void> {
+  async execute(message: OrderReservedEvent) {
     const order = await this.orderRepository.findById(message.orderId);
 
     if (!order) {
@@ -25,18 +26,15 @@ export class HandleOrderQualifiedUseCase extends HandlerOrderBase {
       return;
     }
 
-    order.qualifiedAt = new Date(message.qualifiedAt);
-    this.logger.log(`Order ${order.id} qualifiedAt set to ${order.qualifiedAt.toISOString()}`);
+    order.reservedAt = new Date();
+    this.logger.log(`Order ${order.id} reservated`);
 
-    if (!message.qualified) {
-      await this.cancelOrder(order, message.reason);
-    } else if (order.status === OrderStatus.RESERVED && message.qualified) {
+    if (order.status == OrderStatus.QUALIFIED) {
+      order.status = OrderStatus.CONFIRMED;
       await this.confirmOrder(order);
     } else {
-      this.logger.log(`Order ${order.id} marked as QUALIFIED, waiting for reservation`);
-      order.status = OrderStatus.QUALIFIED;
+      order.status = OrderStatus.RESERVED;
     }
-
     await this.orderRepository.update(order);
   }
 }
