@@ -8,10 +8,18 @@ import { KafkaModule } from '@vilasboas1407/kafka';
 import { HandleOrderQualifiedUseCase } from './useCases/handle-order-qualified.use-case';
 import { OrderQualifiedConsumer } from 'src/orders/consumers/order-qualified.consumer';
 import { CreateOrderUseCase } from './useCases/create-order.use-case';
+import { OrderReservatedConsumer } from './consumers/order-reservated.consumer';
+import { HandlerOrderReservatedUseCase } from './useCases/handle-order-reservated.use-case';
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: Order.name, schema: OrderSchema }]), KafkaModule],
-  controllers: [OrdersController, OrderQualifiedConsumer],
-  providers: [OrderService, OrderRepository, HandleOrderQualifiedUseCase, CreateOrderUseCase],
+  controllers: [OrdersController, OrderQualifiedConsumer, OrderReservatedConsumer],
+  providers: [
+    OrderService,
+    OrderRepository,
+    HandleOrderQualifiedUseCase,
+    CreateOrderUseCase,
+    HandlerOrderReservatedUseCase,
+  ],
 })
 export class OrdersModule {}
