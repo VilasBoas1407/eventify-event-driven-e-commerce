@@ -87,9 +87,16 @@ http://localhost:8080
 
 ### Topics
 
-| Topic           | Producer      | Consumers                                | Description                                                                                                            |
-| --------------- | ------------- | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `order-created` | Order Service | Qualification Service, Inventory Service | Triggered whenever a new order is created. Services consume this event to process qualification and inventory updates. |
+| Topic               | Producer             | Consumers                                 | Description                                                                                                                 |
+| -------------------- | -------------------- | ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| `order-created`      | Order Service        | Qualification Service, Inventory Service   | Triggered whenever a new order is created. Services consume this event to process qualification and inventory updates.       |
+| `order-canceled`     | Order Service        | Qualification Service, Inventory Service   | Triggered when an order is canceled. Consumers update or rollback related qualification and inventory data.                 |
+| `order-qualified`    | Qualification Service | Order Service                              | Emitted after the order qualification process is completed. Indicates whether the order meets all qualification requirements. |
+| `order-reservated`   | Inventory Service    | Order Service                              | Emitted when inventory has been successfully reserved for an order.                                                         |
+| `order-confirmed`    | Order Service        | Notification Service, Payment Service       | Triggered when both qualification and reservation are completed, confirming the order.                                      |
+| `payment-autorized`  | Payment Service      | Order Service                              | Triggered when payment authorization is successfully processed by the payment provider.                                     |
+| `payment-confirmed`  | Payment Service      | Order Service, Notification Service         | Emitted after payment confirmation, indicating the transaction was successfully completed.                                  |
+
 
 
 ## 📦 Packages
