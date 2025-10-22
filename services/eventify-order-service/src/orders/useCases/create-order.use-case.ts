@@ -3,6 +3,7 @@ import { CreateOrderRequest, ProductItemRequest } from '../contracts/create-orde
 import { OrderRepository } from '../repository/orders.repository';
 import { KafkaService, ORDER_CREATED_EVENT, OrderCreatedEvent } from '@vilasboas1407/kafka';
 import { Order } from '../schemas/order.schema';
+import { ProductService } from '../services/product.service';
 
 @Injectable()
 export class CreateOrderUseCase {
@@ -10,13 +11,15 @@ export class CreateOrderUseCase {
 
   constructor(
     private readonly orderRepository: OrderRepository,
-    private readonly kafkaService: KafkaService
+    private readonly kafkaService: KafkaService,
+    private readonly productService: ProductService
   ) {}
 
   async execute(request: CreateOrderRequest): Promise<string> {
     request.items = this.groupOrderItems(request.items);
-    
-    request.amount = request.items.
+
+    request.amount = await this.calculateTotalAmount(request.items);
+
     const order = await this.orderRepository.create(request);
     this.logger.log(`Order created with ID: ${order.id}`);
 
@@ -42,6 +45,24 @@ export class CreateOrderUseCase {
       }
     }
     return Array.from(map.entries()).map(([productId, count]) => ({ productId, count }));
+  }
+
+  private async calculateTotalAmount(items: ProductItemRequest[]): Promise<number> {
+    const productIds = items.map((item) => item.productId);
+    const products = await this.productService.getProductsByIds(productIds);
+
+    let totalAmount = 0;
+    for (const item of items) {
+      const product = products.find((p) => p.id === item.productId);
+      if (product) {
+        totalAmount += product.price * item.count;
+      } else {
+        this.logger.warn(
+          `Product with ID ${item.productId} not found for order amount calculation.`
+        );
+      }
+    }
+    return totalAmount;
   }
 
   private mapToOrderCreatedEvent(order: Order): OrderCreatedEvent {

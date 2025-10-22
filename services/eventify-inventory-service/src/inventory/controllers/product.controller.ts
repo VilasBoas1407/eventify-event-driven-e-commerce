@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateProductUseCase } from '../useCases/create-product.use-case';
 import { CreateProductRequest } from '../contracts/create-product.contract';
@@ -24,9 +24,16 @@ export class ProductController {
     return await this.createProductUseCase.execute(request);
   }
 
+  @Get('filter')
+  @ApiOperation({ summary: 'Retrieve products by IDs' })
+  async getProductsByIds(@Query('ids') ids: string) {
+    const productIds = ids.split(',').map((id) => id.trim());
+    return await this.productService.getProductsByIds(productIds);
+  }
+
   @Get(':id')
   @ApiOperation({ summary: 'Retrieve a product by ID' })
-  async getProductById(@Body('id') id: string) {
+  async getProductById(@Param('id') id: string) {
     return await this.productService.getById(id);
   }
 }

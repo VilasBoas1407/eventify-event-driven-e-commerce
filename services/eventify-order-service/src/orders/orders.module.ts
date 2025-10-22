@@ -10,6 +10,8 @@ import { OrderQualifiedConsumer } from 'src/orders/consumers/order-qualified.con
 import { CreateOrderUseCase } from './useCases/create-order.use-case';
 import { OrderReservatedConsumer } from './consumers/order-reservated.consumer';
 import { HandlerOrderReservatedUseCase } from './useCases/handle-order-reservated.use-case';
+import { ProductService } from './services/product.service';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: Order.name, schema: OrderSchema }]), KafkaModule],
@@ -20,6 +22,8 @@ import { HandlerOrderReservatedUseCase } from './useCases/handle-order-reservate
     HandleOrderQualifiedUseCase,
     CreateOrderUseCase,
     HandlerOrderReservatedUseCase,
+    ProductService,
+    HttpModule,
   ],
 })
 export class OrdersModule {}
