@@ -117,4 +117,6 @@ export class CreateOrderRequest {
   @Type(() => PaymentRequest)
   @ValidateNested()
   payment: PaymentRequest;
+
+  amount: number;
 }

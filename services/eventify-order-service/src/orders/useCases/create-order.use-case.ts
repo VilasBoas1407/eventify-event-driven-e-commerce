@@ -15,7 +15,8 @@ export class CreateOrderUseCase {
 
   async execute(request: CreateOrderRequest): Promise<string> {
     request.items = this.groupOrderItems(request.items);
-
+    
+    request.amount = request.items.
     const order = await this.orderRepository.create(request);
     this.logger.log(`Order created with ID: ${order.id}`);
 

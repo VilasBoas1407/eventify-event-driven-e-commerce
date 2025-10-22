@@ -21,4 +21,6 @@ export class ProductController {
   async createProduct(@Body() request: CreateProductRequest) {
     return await this.createProductUseCase.execute(request);
   }
+
+  @Get(})
 }
