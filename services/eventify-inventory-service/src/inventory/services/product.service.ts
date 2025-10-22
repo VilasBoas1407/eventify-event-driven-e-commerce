@@ -12,7 +12,8 @@ export class ProductService {
 
   async getById(id: string): Promise<Product> {
     const product = await this.productRepository.findById(id);
-    if (!product) throw new NotFoundException('Produto not found');
+    if (!product)
+      throw new NotFoundException(`Product with id ${id} not found`);
     return product;
   }
 
