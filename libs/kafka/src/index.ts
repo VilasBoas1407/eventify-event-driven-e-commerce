@@ -7,3 +7,4 @@ export * from "./constants/kafka.constant";
 export * from "./events/order-canceled";
 export * from "./events/order-confirmed";
 export * from "./events/order-reserved";
+export * from "./events/payment-autorized";

@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { KafkaService, OrderConfirmedEvent } from '@vilasboas1407/kafka';
+import { KafkaService, OrderConfirmedEvent,  } from '@vilasboas1407/kafka';
 import { OrderPaymentRepository } from '../repository/order-payment.repository';
 import { OrderPayment } from '../schemas/order-payment.schema';
 import { PaymentStatus } from '../enum/payment-status.enum';
