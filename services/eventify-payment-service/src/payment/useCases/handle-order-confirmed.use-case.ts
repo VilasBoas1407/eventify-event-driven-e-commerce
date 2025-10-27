@@ -1,5 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { KafkaService, OrderConfirmedEvent,  } from '@vilasboas1407/kafka';
+import {
+  KafkaService,
+  OrderConfirmedEvent,
+  PaymentAuthorizedEvent,
+  PAYMENT_AUTHORIZED,
+} from '@vilasboas1407/kafka';
 import { OrderPaymentRepository } from '../repository/order-payment.repository';
 import { OrderPayment } from '../schemas/order-payment.schema';
 import { PaymentStatus } from '../enum/payment-status.enum';
@@ -35,9 +40,7 @@ export class HandleOrderConfirmedUseCase {
         throw new Error(`Order with id ${message.orderId} not found`);
       }
 
-      this.logger.log(
-        `Validating payment for orderId: ${message.orderId}`,
-      );
+      this.logger.log(`Validating payment for orderId: ${message.orderId}`);
       const orderPayment = new OrderPayment({
         orderId: message.orderId,
         status: PaymentStatus.CONFIRMED,
@@ -48,7 +51,23 @@ export class HandleOrderConfirmedUseCase {
 
       await this.orderPaymentRepository.create(orderPayment);
 
-      await this.kafkaService.sendMessage(PAYMENT_AUTHORIZED, {
+      const paymentAuthorizedEvent: PaymentAuthorizedEvent = {
+        orderId: message.orderId,
+        authorizedAt: new Date(),
+      };
+
+      this.logger.log(
+        `Publishing PaymentAuthorizedEvent for orderId: ${message.orderId}`,
+      );
+
+      await this.kafkaService.sendMessage(
+        PAYMENT_AUTHORIZED,
+        paymentAuthorizedEvent,
+      );
+
+      this.logger.log(
+        `OrderConfirmedEvent processed successfully for orderId: ${message.orderId}`,
+      );
     }
   }
 }
