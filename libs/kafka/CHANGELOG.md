@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.16.0](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/compare/v1.15.0...v1.16.0) (2025-10-27)
+
+
+### Features
+
+* update Kafka events and dependencies for payment authorization ([0ae5978](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/commit/0ae59780b29c14043b4a55e9c8b0b5cfbc7579ce))
+
 ## [1.15.0](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/compare/v1.3.1...v1.15.0) (2025-10-27)
 
 
