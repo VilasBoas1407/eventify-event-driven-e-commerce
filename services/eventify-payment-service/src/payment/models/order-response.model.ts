@@ -6,6 +6,7 @@ export class Order {
   status: string;
   createdAt: Date;
   updateAt: Date;
+  amount: number;
 }
 
 export class OrderItem {

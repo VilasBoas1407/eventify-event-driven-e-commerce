@@ -35,13 +35,20 @@ export class HandleOrderConfirmedUseCase {
         throw new Error(`Order with id ${message.orderId} not found`);
       }
 
-      const orderPayment: OrderPayment = {
+      this.logger.log(
+        `Validating payment for orderId: ${message.orderId}`,
+      );
+      const orderPayment = new OrderPayment({
         orderId: message.orderId,
-        status: PaymentStatus.CONFIRMED
-        amount:order.
-      };
+        status: PaymentStatus.CONFIRMED,
+        amount: order.amount,
+        paymentAt: new Date(),
+        createdAt: new Date(),
+      });
 
       await this.orderPaymentRepository.create(orderPayment);
+
+      await this.kafkaService.sendMessage(PAYMENT_AUTHORIZED, {
     }
   }
 }

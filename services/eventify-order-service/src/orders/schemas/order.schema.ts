@@ -49,6 +49,9 @@ export class Payment {
 
 @Schema({ optimisticConcurrency: true })
 export class Order extends BaseSchema {
+  @Prop({ required: true })
+  amount: number;
+
   @Prop({ required: true, type: Array })
   items: ProductItem[];
 

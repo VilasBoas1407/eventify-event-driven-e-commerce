@@ -12,6 +12,9 @@ export class OrderPayment extends BaseSchema {
 
   @Prop({ required: true })
   paymentAt: Date;
+
+  @Prop({ required: true })
+  amount: number;
 }
 
 export const OrderPaymentSchema = SchemaFactory.createForClass(OrderPayment);
