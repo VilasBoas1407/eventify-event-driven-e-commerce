@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.15.0](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/compare/v1.3.1...v1.15.0) (2025-10-27)
+
+
+### Features
+
+* add payment authorization event and update order schemas with amount ([bd945ab](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/commit/bd945ab5b53e4a5078b9ba45033a20184f53afd0))
+
 ## [1.14.0](https://github.com/VilasBoas1407/projeto-1-eda-plataforma-e-commerce/compare/v1.3.0...v1.14.0) (2025-10-07)
 
 
