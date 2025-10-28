@@ -105,7 +105,21 @@ services:
         echo "Topics created!"
         tail -f /dev/null
 
+
+  sonarqube:
+    image: sonarqube:community
+    container_name: sonarqube
+    ports:
+      - "9000:9000"
+    environment:
+      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+
 volumes:
   mongo-order-data:
   mongo-auth-data:
   mongo-notification-data:
+  sonarqube_data:
+  sonarqube_extensions:
