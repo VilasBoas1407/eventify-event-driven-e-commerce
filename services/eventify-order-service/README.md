@@ -1,50 +1,73 @@
+# Eventify Order Service
+
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+  <img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" />
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
+<p align="center">
+  Core order management microservice for the Eventify e-commerce platform
 </p>
+
+<p align="center">
+  <a href="https://sonarcloud.io/summary/new_code?id=VilasBoas1407_projeto-1-eda-plataforma-e-commerce"><img src="https://sonarcloud.io/api/project_badges/measure?project=VilasBoas1407_projeto-1-eda-plataforma-e-commerce&metric=alert_status" alt="Quality Gate Status" /></a>
+  <a href="https://sonarcloud.io/summary/new_code?id=VilasBoas1407_projeto-1-eda-plataforma-e-commerce"><img src="https://sonarcloud.io/api/project_badges/measure?project=VilasBoas1407_projeto-1-eda-plataforma-e-commerce&metric=coverage" alt="Coverage" /></a>
+  <img src="https://img.shields.io/badge/kafka-enabled-brightgreen.svg" alt="Kafka Enabled"/>
+  <img src="https://img.shields.io/badge/orders-management-blue.svg" alt="Orders Management"/>
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## Overview
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+The Order Service is the central component of the Eventify e-commerce platform, orchestrating the entire order lifecycle from creation to fulfillment. This service manages order states, coordinates with other services through events, and provides a REST API for order management.
 
-## Project setup
+## Key Features
+
+- Complete order lifecycle management
+- Event-driven order processing
+- Order validation and verification
+- Integration with other services (Payment, Inventory, etc.)
+- Order status tracking and updates
+- RESTful API for order operations
+- Asynchronous event processing
+
+## Event Flow
+
+### Published Events
+- `order-created`: When a new order is created
+- `order-confirmed`: After qualification and inventory checks
+- `order-canceled`: When an order is canceled
+- `order-completed`: When an order is fully processed
+
+### Consumed Events
+- `order-qualified`: From Qualification Service
+- `order-reservated`: From Inventory Service
+- `payment-confirmed`: From Payment Service
+- `payment-failed`: From Payment Service
+
+## Project Setup
 
 ```bash
+# Install dependencies
 $ npm install
+
+# Set up environment variables
+$ cp .env.example .env
 ```
 
-## Compile and run the project
+## Running the Service
 
 ```bash
-# development
+# Development mode
 $ npm run start
 
-# watch mode
+# Watch mode
 $ npm run start:dev
 
-# production mode
+# Production mode
 $ npm run start:prod
 ```
 
-## Run tests
+## Testing
 
 ```bash
 # unit tests
@@ -83,16 +106,92 @@ Check out a few resources that may come in handy when working with NestJS:
 - To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
 - Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
 
-## Support
+## Environment Variables
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```env
+# Kafka Configuration
+KAFKA_BROKERS=localhost:9092
+KAFKA_GROUP_ID=order-service
+KAFKA_CLIENT_ID=order-service
 
-## Stay in touch
+# MongoDB Configuration
+MONGODB_URI=mongodb://localhost:27017/orders
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+# API Configuration
+PORT=3000
+API_PREFIX=/api/v1
+```
+
+## Architecture
+
+The service follows a modular architecture pattern:
+
+```
+src/
+├── app.module.ts           # Main application module
+├── main.ts                # Application entry point
+├── config/               # Configuration files
+├── orders/              # Orders domain
+│   ├── consumers/       # Kafka event consumers
+│   ├── contracts/       # Interfaces and types
+│   ├── models/         # Domain models
+│   ├── repository/     # Data access layer
+│   ├── schemas/        # MongoDB schemas
+│   ├── services/       # Business services
+│   ├── useCases/       # Business logic implementation
+│   ├── orders.controller.ts # REST API controllers
+│   └── orders.module.ts    # Orders module configuration
+└── shared/             # Shared utilities and helpers
+```
+
+## API Documentation
+
+### REST Endpoints
+
+#### Orders
+- `POST /api/v1/orders`: Create new order
+- `GET /api/v1/orders`: List all orders
+- `GET /api/v1/orders/:id`: Get order details
+- `PATCH /api/v1/orders/:id/cancel`: Cancel order
+- `GET /api/v1/orders/:id/status`: Get order status
+
+### Order States
+
+1. `CREATED`: Initial state
+2. `PENDING_QUALIFICATION`: Awaiting qualification check
+3. `QUALIFIED`: Passed qualification check
+4. `PENDING_INVENTORY`: Checking inventory
+5. `INVENTORY_RESERVED`: Inventory reserved
+6. `PENDING_PAYMENT`: Awaiting payment
+7. `PAYMENT_CONFIRMED`: Payment received
+8. `COMPLETED`: Order fulfilled
+9. `CANCELED`: Order canceled
+
+## Error Handling
+
+The service implements robust error handling:
+
+- Business rule violations
+- Event processing failures
+- Database operation errors
+- Integration errors
+
+Each error type has specific handling and recovery strategies.
+
+## Related Services
+
+- [Qualification Service](../eventify-qualification-service)
+- [Inventory Service](../eventify-inventory-service)
+- [Payment Service](../eventify-payment-service)
+- [Notification Service](../eventify-notification-service)
+
+## Contributing
+
+1. Create a feature branch
+2. Commit your changes following our commit convention
+3. Push to the branch
+4. Create a Pull Request
 
 ## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+This project is part of Eventify and is [MIT licensed](../../LICENSE).

@@ -1,6 +1,8 @@
 # Eventify – Event-Driven E-commerce Platform (NestJS)
 
-**Eventify** is a practical project inspired by **Project 1** from Roberto Picanço’s book *Arquitetura Orientada a Eventos: Soluções escaláveis e em tempo real com EDA*. Built with **NestJS**, it simulates a **scalable, event-driven e-commerce system**, demonstrating microservices, event brokers, and automated testing.
+**Eventify** is a practical project inspired by **Project 1** from Roberto Picanço's book *Arquitetura Orientada a Eventos: Soluções escaláveis e em tempo real com EDA*. Built with **NestJS**, it simulates a **scalable, event-driven e-commerce system**, demonstrating microservices, event brokers, and automated testing.
+
+> This project is part of the book's final section, where three simplified, practical projects are proposed to apply EDA concepts learned throughout the chapters. Each project includes defining the problem, functional & non-functional requirements, constraints, and execution steps.
 
 > This project is part of the book’s final section, where three simplified, practical projects are proposed to apply EDA concepts learned throughout the chapters. Each project includes defining the problem, functional & non-functional requirements, constraints, and execution steps.
 
@@ -214,8 +216,21 @@ The project follows four main stages, as proposed in the book:
 ## 📦 Deployment
 
 - On-premise deployment required  
-- Must satisfy reliability, scalability, and availability requirements  
+- Must satisfy reliability, scalability, and availability requirements
+- Containerized deployment using Docker
+- Infrastructure as Code using Docker Compose
+- CI/CD pipeline for automated deployments
+
+### Production Requirements:
+- High availability setup
+- Load balancing
+- Monitoring and alerting
+- Backup and disaster recovery
 
 ---
 
-> **Note:** Eventify is an educational project based on Roberto Picanço’s *Event-Driven Architecture: Scalable and Real-Time Solutions with EDA*. It demonstrates **NestJS microservices**, event-driven flows, and best practices for building scalable e-commerce platforms.
+> **Note:** Eventify is an educational project based on Roberto Picanço's *Event-Driven Architecture: Scalable and Real-Time Solutions with EDA*. It demonstrates **NestJS microservices**, event-driven flows, and best practices for building scalable e-commerce platforms.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

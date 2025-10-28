@@ -1,5 +1,7 @@
+# Eventify Qualification Service
+
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+  <img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" />
 </p>
 
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
@@ -21,30 +23,49 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## Overview
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+The Qualification Service is a critical component of the Eventify e-commerce platform, responsible for validating and qualifying orders based on business rules and constraints. This service processes order events and determines whether they meet the necessary criteria for fulfillment.
 
-## Project setup
+## Key Features
+
+- Order validation and qualification
+- Address validation for capital cities only
+- Integration with Kafka event broker
+- Asynchronous event processing
+- Automated testing suite
+
+## Event Flow
+
+### Consumed Events
+- `order-created`: Triggered when a new order is created
+- `order-canceled`: Triggered when an order is canceled
+
+### Produced Events
+- `order-qualified`: Emitted after successful order qualification
+- `order-qualification-failed`: Emitted when qualification fails
+
+## Project Setup
 
 ```bash
+# Install dependencies
 $ npm install
 ```
 
-## Compile and run the project
+## Running the Service
 
 ```bash
-# development
+# Development mode
 $ npm run start
 
-# watch mode
+# Watch mode
 $ npm run start:dev
 
-# production mode
+# Production mode
 $ npm run start:prod
 ```
 
-## Run tests
+## Testing
 
 ```bash
 # unit tests
@@ -83,16 +104,58 @@ Check out a few resources that may come in handy when working with NestJS:
 - To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
 - Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
 
-## Support
+## Environment Variables
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```env
+# Kafka Configuration
+KAFKA_BROKERS=localhost:9092
+KAFKA_GROUP_ID=qualification-service
+KAFKA_CLIENT_ID=qualification-service
 
-## Stay in touch
+# MongoDB Configuration
+MONGODB_URI=mongodb://localhost:27017/qualification
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## API Documentation
+
+The service exposes internal endpoints for monitoring and management:
+
+- `GET /health`: Service health check
+- `GET /metrics`: Service metrics for monitoring
+
+## Architecture
+
+The service follows a modular architecture pattern aligned with NestJS best practices:
+
+```
+src/
+├── app.module.ts          # Main application module
+├── main.ts               # Application entry point
+└── qualification/        # Qualification domain
+    ├── consumers/        # Kafka event consumers
+    ├── useCases/        # Business logic implementation
+    └── qualification.module.ts   # Qualification module configuration
+```
+
+### Key Components:
+
+- **Consumers**: Handle incoming Kafka events (order-created, order-canceled)
+- **Use Cases**: Implement business logic for order qualification
+- **Module**: Configure dependency injection and module exports
+
+## Contributing
+
+1. Create a feature branch
+2. Commit your changes
+3. Push to the branch
+4. Create a Pull Request
+
+## Related Services
+
+- [Order Service](../eventify-order-service)
+- [Inventory Service](../eventify-inventory-service)
+- [Notification Service](../eventify-notification-service)
 
 ## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+This project is part of Eventify and is [MIT licensed](../../LICENSE).

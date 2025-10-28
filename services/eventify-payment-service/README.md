@@ -1,50 +1,70 @@
+# Eventify Payment Service
+
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+  <img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" />
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
+<p align="center">
+  Microservice responsible for payment processing in the Eventify e-commerce platform
 </p>
+
+<p align="center">
+  <a href="https://sonarcloud.io/summary/new_code?id=VilasBoas1407_projeto-1-eda-plataforma-e-commerce"><img src="https://sonarcloud.io/api/project_badges/measure?project=VilasBoas1407_projeto-1-eda-plataforma-e-commerce&metric=alert_status" alt="Quality Gate Status" /></a>
+  <a href="https://sonarcloud.io/summary/new_code?id=VilasBoas1407_projeto-1-eda-plataforma-e-commerce"><img src="https://sonarcloud.io/api/project_badges/measure?project=VilasBoas1407_projeto-1-eda-plataforma-e-commerce&metric=coverage" alt="Coverage" /></a>
+  <img src="https://img.shields.io/badge/kafka-enabled-brightgreen.svg" alt="Kafka Enabled"/>
+  <img src="https://img.shields.io/badge/payment-processing-blue.svg" alt="Payment Processing"/>
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## Overview
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+The Payment Service is a crucial component of the Eventify e-commerce platform, responsible for processing and managing payment transactions. This service handles payment authorization, confirmation, and failure scenarios through asynchronous event processing.
 
-## Project setup
+## Key Features
+
+- Payment processing and authorization
+- Multiple payment method support
+- Integration with payment gateways
+- Transaction history tracking
+- Asynchronous event processing
+- Error handling and recovery
+- Payment status monitoring
+
+## Event Flow
+
+### Consumed Events
+- `order-confirmed`: Triggers payment processing for a confirmed order
+- `payment-cancellation-requested`: Handles payment cancellation requests
+
+### Produced Events
+- `payment-authorized`: Emitted after successful payment authorization
+- `payment-confirmed`: Emitted after successful payment completion
+- `payment-failed`: Emitted when payment processing fails
+
+## Project Setup
 
 ```bash
+# Install dependencies
 $ npm install
+
+# Set up environment variables
+$ cp .env.example .env
 ```
 
-## Compile and run the project
+## Running the Service
 
 ```bash
-# development
+# Development mode
 $ npm run start
 
-# watch mode
+# Watch mode
 $ npm run start:dev
 
-# production mode
+# Production mode
 $ npm run start:prod
 ```
 
-## Run tests
+## Testing
 
 ```bash
 # unit tests
@@ -83,16 +103,71 @@ Check out a few resources that may come in handy when working with NestJS:
 - To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
 - Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
 
-## Support
+## Environment Variables
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```env
+# Kafka Configuration
+KAFKA_BROKERS=localhost:9092
+KAFKA_GROUP_ID=payment-service
+KAFKA_CLIENT_ID=payment-service
 
-## Stay in touch
+# MongoDB Configuration
+MONGODB_URI=mongodb://localhost:27017/payment
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+# Payment Gateway Configuration
+PAYMENT_GATEWAY_API_KEY=your-api-key
+PAYMENT_GATEWAY_URL=https://api.payment-gateway.com
+```
+
+## Architecture
+
+The service follows a modular architecture pattern:
+
+```
+src/
+├── app.module.ts          # Main application module
+├── main.ts               # Application entry point
+├── payment/             # Payment domain
+│   ├── consumers/       # Kafka event consumers
+│   ├── enum/           # Enumerations
+│   ├── models/         # Domain models
+│   ├── repository/     # Data access layer
+│   ├── schemas/        # MongoDB schemas
+│   ├── services/       # Business services
+│   ├── useCases/       # Business logic implementation
+│   └── payment.module.ts # Payment module configuration
+└── shared/             # Shared utilities and helpers
+```
+
+### Key Components:
+
+- **Consumers**: Handle incoming Kafka events
+- **Models**: Define payment and transaction entities
+- **Repository**: Manage data persistence
+- **Services**: Implement payment gateway integration
+- **Use Cases**: Implement payment business logic
+
+## API Documentation
+
+The service exposes internal endpoints for monitoring and management:
+
+- `GET /health`: Service health check
+- `GET /metrics`: Service metrics for monitoring
+- `GET /payments`: List payments (admin only)
+- `GET /payments/:id`: Get payment details (admin only)
+
+## Related Services
+
+- [Order Service](../eventify-order-service)
+- [Notification Service](../eventify-notification-service)
+
+## Contributing
+
+1. Create a feature branch
+2. Commit your changes following our commit convention
+3. Push to the branch
+4. Create a Pull Request
 
 ## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+This project is part of Eventify and is [MIT licensed](../../LICENSE).
