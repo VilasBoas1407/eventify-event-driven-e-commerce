@@ -1,12 +1,18 @@
+# Eventify Inventory Service
+
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+  <img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" />
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+<p align="center">
+  Microservice responsible for inventory management in the Eventify e-commerce platform
+</p>
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
+<p align="center">
+  <a href="https://sonarcloud.io/summary/new_code?id=VilasBoas1407_projeto-1-eda-plataforma-e-commerce"><img src="https://sonarcloud.io/api/project_badges/measure?project=VilasBoas1407_projeto-1-eda-plataforma-e-commerce&metric=alert_status" alt="Quality Gate Status" /></a>
+  <a href="https://sonarcloud.io/summary/new_code?id=VilasBoas1407_projeto-1-eda-plataforma-e-commerce"><img src="https://sonarcloud.io/api/project_badges/measure?project=VilasBoas1407_projeto-1-eda-plataforma-e-commerce&metric=coverage" alt="Coverage" /></a>
+  <img src="https://img.shields.io/badge/kafka-enabled-brightgreen.svg" alt="Kafka Enabled"/>
+  <img src="https://img.shields.io/badge/inventory-management-blue.svg" alt="Inventory Management"/>
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
@@ -21,30 +27,65 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## Overview
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+The Inventory Service is a critical component of the Eventify e-commerce platform, responsible for managing product stock levels, reservations, and inventory operations. This service ensures accurate stock tracking and prevents overselling through event-driven stock management.
 
-## Project setup
+## Key Features
+
+- Real-time inventory tracking
+- Stock reservation for orders
+- Automatic stock updates
+- Low stock alerts
+- Stock reservation timeout handling
+- Product availability checks
+- Concurrent reservation handling
+- Stock level history
+
+## Business Rules
+
+- Minimum stock level: 3 units
+- Automatic reservation timeout: 30 minutes
+- Low stock threshold: configurable per product
+- Reservation validation before confirmation
+- Concurrent access handling
+
+## Event Flow
+
+### Consumed Events
+- `order-created`: Triggers stock reservation
+- `order-canceled`: Releases reserved stock
+- `payment-confirmed`: Confirms stock deduction
+
+### Published Events
+- `order-reservated`: When stock is successfully reserved
+- `reservation-failed`: When stock reservation fails
+- `low-stock-alert`: When product reaches low stock threshold
+
+## Project Setup
 
 ```bash
+# Install dependencies
 $ npm install
+
+# Set up environment variables
+$ cp .env.example .env
 ```
 
-## Compile and run the project
+## Running the Service
 
 ```bash
-# development
+# Development mode
 $ npm run start
 
-# watch mode
+# Watch mode
 $ npm run start:dev
 
-# production mode
+# Production mode
 $ npm run start:prod
 ```
 
-## Run tests
+## Testing
 
 ```bash
 # unit tests
@@ -83,16 +124,96 @@ Check out a few resources that may come in handy when working with NestJS:
 - To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
 - Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
 
-## Support
+## Environment Variables
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```env
+# Kafka Configuration
+KAFKA_BROKERS=localhost:9092
+KAFKA_GROUP_ID=inventory-service
+KAFKA_CLIENT_ID=inventory-service
 
-## Stay in touch
+# MongoDB Configuration
+MONGODB_URI=mongodb://localhost:27017/inventory
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+# Service Configuration
+PORT=3002
+RESERVATION_TIMEOUT_MINUTES=30
+LOW_STOCK_THRESHOLD=5
+```
+
+## Architecture
+
+The service follows a modular architecture pattern:
+
+```
+src/
+├── app.module.ts           # Main application module
+├── main.ts                # Application entry point
+├── inventory/            # Inventory domain
+│   ├── consumers/       # Kafka event consumers
+│   ├── contracts/       # Interfaces and types
+│   ├── controllers/     # REST API controllers
+│   ├── repository/     # Data access layer
+│   ├── schema/         # MongoDB schemas
+│   ├── services/       # Business services
+│   ├── useCases/       # Business logic implementation
+│   └── inventory.module.ts # Inventory module configuration
+└── shared/             # Shared utilities and helpers
+```
+
+## API Documentation
+
+### REST Endpoints
+
+#### Products
+- `GET /api/v1/products`: List all products with stock levels
+- `GET /api/v1/products/:id`: Get product stock details
+- `POST /api/v1/products`: Add new product to inventory
+- `PATCH /api/v1/products/:id/stock`: Update product stock level
+
+#### Stock Operations
+- `POST /api/v1/stock/reserve`: Reserve stock for order
+- `POST /api/v1/stock/release`: Release reserved stock
+- `GET /api/v1/stock/history`: Get stock operation history
+
+### Stock States
+
+1. `AVAILABLE`: Stock ready for reservation
+2. `RESERVED`: Temporarily held for an order
+3. `CONFIRMED`: Deducted from available stock
+4. `LOW_STOCK`: Below threshold level
+5. `OUT_OF_STOCK`: No available units
+
+## Error Handling
+
+The service implements robust error handling for:
+
+- Concurrent stock operations
+- Invalid stock levels
+- Reservation timeouts
+- Database consistency
+- Event processing failures
+
+## Performance Considerations
+
+- Optimistic locking for concurrent operations
+- Caching of frequently accessed stock levels
+- Batch processing for bulk operations
+- Indexed queries for fast stock checks
+
+## Related Services
+
+- [Order Service](../eventify-order-service)
+- [Payment Service](../eventify-payment-service)
+- [Notification Service](../eventify-notification-service)
+
+## Contributing
+
+1. Create a feature branch
+2. Commit your changes following our commit convention
+3. Push to the branch
+4. Create a Pull Request
 
 ## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+This project is part of Eventify and is [MIT licensed](../../LICENSE).
