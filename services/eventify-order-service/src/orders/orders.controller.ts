@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { OrderService } from './services/orders.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateOrderRequest } from './contracts/create-order.contract';

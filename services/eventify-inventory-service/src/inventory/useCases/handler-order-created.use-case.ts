@@ -48,33 +48,29 @@ export class HandleOrderCreatedUseCase {
   ): Promise<ProductReservationDTO[]> {
     const reservations: ProductReservationDTO[] = [];
 
-    try {
-      const productIds = message.items.map((item) => item.productId);
-      const products = await this.productService.findByIds(productIds);
+    const productIds = message.items.map((item) => item.productId);
+    const products = await this.productService.findByIds(productIds);
 
-      for (const item of message.items) {
-        const product = products.find((p) => p.id === item.productId);
-        if (!product) {
-          throw new Error(`Product with ID ${item.productId} not found`);
-        }
-
-        if (product.stock < item.count) {
-          throw new Error(
-            `Don't have enougth products ${product.name} on stock for the order : ${message.orderId}`,
-          );
-        }
-
-        reservations.push({
-          productId: item.productId,
-          quantity: item.count,
-          orderId: message.orderId,
-        });
+    for (const item of message.items) {
+      const product = products.find((p) => p.id === item.productId);
+      if (!product) {
+        throw new Error(`Product with ID ${item.productId} not found`);
       }
 
-      return reservations;
-    } catch (error) {
-      throw error;
+      if (product.stock < item.count) {
+        throw new Error(
+          `Don't have enougth products ${product.name} on stock for the order : ${message.orderId}`,
+        );
+      }
+
+      reservations.push({
+        productId: item.productId,
+        quantity: item.count,
+        orderId: message.orderId,
+      });
     }
+
+    return reservations;
   }
   private async createReservation(reservation: ProductReservationDTO) {
     this.logger.log(

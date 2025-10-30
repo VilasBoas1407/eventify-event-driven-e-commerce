@@ -1,5 +1,4 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { plainToInstance } from 'class-transformer';
 import { firstValueFrom } from 'rxjs';
 import { Product } from '../models/product.model';
 import { HttpService } from '@nestjs/axios';

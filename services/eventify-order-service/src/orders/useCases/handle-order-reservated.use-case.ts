@@ -1,4 +1,4 @@
-import { Controller, Logger } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { KafkaService, OrderReservedEvent } from '@vilasboas1407/kafka';
 import { OrderRepository } from '../repository/orders.repository';
 import { OrderStatus } from 'src/shared/enum/OrderStatus';

@@ -1,4 +1,4 @@
-import { Controller, Logger } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { Payload, MessagePattern } from '@nestjs/microservices';
 import { ORDER_RESERVED_EVENT } from '@vilasboas1407/kafka';
 import type { OrderReservedEvent } from '@vilasboas1407/kafka';

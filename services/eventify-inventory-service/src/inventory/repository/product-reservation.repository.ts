@@ -7,7 +7,7 @@ import { Model } from 'mongoose';
 export class ReservationRepository {
   constructor(
     @InjectModel(ProductReservation.name)
-    private productModel: Model<ProductReservation>,
+    private readonly productModel: Model<ProductReservation>,
   ) {}
 
   async create(

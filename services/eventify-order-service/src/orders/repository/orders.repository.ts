@@ -7,7 +7,7 @@ import { OrderStatus } from 'src/shared/enum/OrderStatus';
 
 @Injectable()
 export class OrderRepository {
-  constructor(@InjectModel(Order.name) private orderModel: Model<Order>) {}
+  constructor(@InjectModel(Order.name) private readonly orderModel: Model<Order>) {}
 
   async create(order: CreateOrderRequest): Promise<Order> {
     const createdOrder = new this.orderModel(order);

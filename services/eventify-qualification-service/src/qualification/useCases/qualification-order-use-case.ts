@@ -26,7 +26,7 @@ export class QualificationOrderUseCase {
         qualifiedAt: new Date(),
       } as OrderQualifiedEvent;
 
-      const postalCode = data.deliveryAddress.postalCode.replace(/\D/g, '');
+      const postalCode = data.deliveryAddress.postalCode.replaceAll(/\D/g, '');
 
       if (postalCode.length !== 8) {
         message.reason = `Invalid CEP format: ${postalCode}`;
@@ -38,7 +38,8 @@ export class QualificationOrderUseCase {
       const isCapital = await this.isCapital(postalCode);
 
       message.qualified = isCapital;
-      message.reason = !isCapital ? 'Customer is not from a capital city' : '';
+
+      message.reason = isCapital ? '' : 'Customer is not from a capital city';
 
       await this.kafkaService.sendMessage(ORDER_QUALIFIED_EVENT, message);
       this.logger.log(`Processed order - ${data.orderId}`);

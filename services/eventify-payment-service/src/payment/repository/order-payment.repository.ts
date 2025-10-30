@@ -6,7 +6,8 @@ import { Model } from 'mongoose';
 @Injectable()
 export class OrderPaymentRepository {
   constructor(
-    @InjectModel(OrderPayment.name) private orderPayment: Model<OrderPayment>,
+    @InjectModel(OrderPayment.name)
+    private readonly orderPayment: Model<OrderPayment>,
   ) {}
 
   async create(orderPayment: OrderPayment): Promise<OrderPayment> {

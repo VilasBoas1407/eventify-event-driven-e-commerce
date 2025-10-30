@@ -6,7 +6,7 @@ import { Product } from '../schema/product.schema';
 @Injectable()
 export class ProductRepository {
   constructor(
-    @InjectModel(Product.name) private productModel: Model<Product>,
+    @InjectModel(Product.name) private readonly productModel: Model<Product>,
   ) {}
 
   async findBySku(sku: string): Promise<Product | null> {

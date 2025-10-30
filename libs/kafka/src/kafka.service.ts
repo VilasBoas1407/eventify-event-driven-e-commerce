@@ -13,7 +13,7 @@ export class KafkaService implements OnModuleInit {
   }
 
   async sendMessage(topic: string, message: any) {
-    await this.kafkaClient.emit(topic, {
+    this.kafkaClient.emit(topic, {
       key: message.id || null,
       value: JSON.stringify(message),
     });
