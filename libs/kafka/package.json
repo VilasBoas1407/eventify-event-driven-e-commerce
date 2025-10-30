@@ -14,7 +14,9 @@
     },
     "scripts": {
         "build": "tsc -p tsconfig.lib.json",
-        "release": "npm run build && standard-version && npm publish"
+        "release": "npm run build && standard-version && npm publish",
+        "test": "jest",
+        "test:cov": "jest --coverage"
     },
     "dependencies": {
         "@nestjs/common": "^11.1.6",
@@ -22,6 +24,28 @@
         "kafkajs": "^2.2.4"
     },
     "devDependencies": {
-        "standard-version": "^9.5.0"
+        "standard-version": "^9.5.0",
+        "jest": "^30.0.0",
+        "ts-jest": "^29.4.4",
+        "@types/jest": "^30.0.0",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.9.3"
+    },
+    "jest": {
+        "moduleFileExtensions": [
+            "js",
+            "json",
+            "ts"
+        ],
+        "rootDir": "test",
+        "testRegex": ".*\\.spec\\.ts$",
+        "transform": {
+            "^.+\\.(t|j)s$": "ts-jest"
+        },
+        "collectCoverageFrom": [
+            "src/**/*.(t|j)s"
+        ],
+        "coverageDirectory": "coverage",
+        "testEnvironment": "node"
     }
 }
