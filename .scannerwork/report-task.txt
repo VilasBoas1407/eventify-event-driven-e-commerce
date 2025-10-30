@@ -2,5 +2,5 @@ projectKey=Eventify
 serverUrl=http://localhost:9000
 serverVersion=25.10.0.114319
 dashboardUrl=http://localhost:9000/dashboard?id=Eventify
-ceTaskId=8ddeb30c-4609-468f-815f-cbf7768a4ad0
-ceTaskUrl=http://localhost:9000/api/ce/task?id=8ddeb30c-4609-468f-815f-cbf7768a4ad0
+ceTaskId=6f40eeb5-6004-48fb-a590-5217701d0076
+ceTaskUrl=http://localhost:9000/api/ce/task?id=6f40eeb5-6004-48fb-a590-5217701d0076
