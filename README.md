@@ -209,7 +209,71 @@ The project follows four main stages, as proposed in the book:
 
 ## 🧪 Testing
 
-- TODO
+### Running Tests
+
+To run all tests across all services:
+```bash
+npm run test:all
+```
+
+To run tests with coverage:
+```bash
+npm run test:coverage
+```
+
+### Code Quality with SonarQube
+
+#### Prerequisites
+- Docker and Docker Compose installed
+- Node.js and npm installed
+- SonarScanner installed globally:
+  ```bash
+  npm install -g sonar-scanner
+  ```
+
+#### Setup SonarQube
+
+1. Start SonarQube container:
+```bash
+docker-compose up -d sonarqube
+```
+
+2. Access SonarQube UI:
+- Open http://localhost:9000 in your browser
+- Login with default credentials (admin/admin)
+- You'll be prompted to change the password on first login
+
+3. Create a new project:
+- Go to "Administration" > "Projects" > "Create Project"
+- Choose "Manual"
+- Set Project Key: `eventify`
+- Set Display Name: `Eventify EDA`
+
+4. Generate authentication token:
+- Go to "Administration" > "Security" > "Users"
+- Click on your user
+- Generate a new token
+- Copy the token and update it in `sonar-project.properties`
+
+#### Running Analysis
+
+To run SonarQube analysis (includes running tests with coverage):
+```bash
+npm run sonar
+```
+
+This will:
+- Run all tests with coverage
+- Analyze code quality
+- Send results to SonarQube
+- Generate reports for:
+  - Code coverage
+  - Code smells
+  - Bugs and vulnerabilities
+  - Duplications
+  - Maintainability metrics
+
+View the results at http://localhost:9000/dashboard?id=eventify-eda
 
 ---
 

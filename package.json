@@ -13,6 +13,9 @@
         "start:order-service": "cd services/eventify-order-service && nest start",
         "start:quality-service": "cd services/eventify-quality-service && nest start",
         "start:all": "npm run start:order-service && npm run start:quality-service",
+        "test:all": "npm run test --workspaces --if-present -- --passWithNoTests",
+        "test:coverage": "npm run test:cov --workspaces --if-present -- --passWithNoTests",
+        "sonar": "npm run test:coverage && sonar-scanner",
         "release": "standard-version",
         "release:lib": "cd libs/kafka && npm run release"
     },
