@@ -42,7 +42,7 @@ services:
 
   # Zookeeper necessary for Kafka
   zookeeper:
-    image: bitnami/zookeeper:3
+    image: soldevelo/zookeeper:3.9
     container_name: zookeeper
     ports:
       - "2181:2181"
@@ -51,7 +51,7 @@ services:
 
   # Kafka Broker
   kafka:
-    image: bitnami/kafka:3
+    image: soldevelo/kafka:3.9
     container_name: kafka
     ports:
       - "9092:9092" # comunicação interna
@@ -79,7 +79,7 @@ services:
       - kafka
 
   kafka-init:
-    image: bitnami/kafka:3
+    image: soldevelo/kafka:3.9
     container_name: kafka-init
     depends_on:
       - kafka
